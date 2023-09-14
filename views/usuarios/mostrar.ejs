@@ -1,0 +1,74 @@
+<%- include("../templates/index")%> <%- include("../templates/menu")%>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h3>Usuarios</h3>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped table-hover">
+        <thead>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Password</th>
+          <th>Edad</th>
+          <th>Editar</th>
+          <th>Borrar</th>
+        </thead>
+        <tbody>
+          <% usuarios.forEach((usuario, index) => { %>
+          <tr>
+            <td><%= usuario.id %></td>
+            <td><%= usuario.nombre %></td>
+            <td><%= usuario.usuario %></td>
+            <td>
+              <input
+                type="password"
+                id="password<%= index %>"
+                name="password"
+                readonly
+                disabled
+                style="border: none; background-color: transparent;"
+                value="<%= usuario.password %>"
+              />
+              <span class="input-group-btn">
+                <button
+                  id="show_password<%= index %>"
+                  class="btn btn-secondary"
+                  type="button"
+                  style="padding: 6px"
+                >
+                  <span><i class="bi bi-eye-fill"></i></span>
+                </button>
+              </span>
+            </td>
+            <td><%= usuario.edad %></td>
+            <td>
+              <a href="usuarios/modificarUsr" class="btn btn-warning"
+                ><i class="bi bi-pen-fill"></i
+              ></a>
+            </td>
+            <td>
+              <a
+                href="/usuarios/eliminar/<%= usuario.id %>"
+                class="btn btn-danger"
+                ><i class="bi bi-trash3-fill"></i
+              ></a>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% usuarios.forEach((usuario, index) => { %>
+  <script>
+    $('#show_password<%= index %>').hover(function() {
+        $('#password<%= index %>').attr('type', 'text');
+    }, function () {
+        $('#password<%= index %>').attr('type', 'password');
+    });
+  </script>
+<% }); %>
+<%- include("../templates/pie")%>
