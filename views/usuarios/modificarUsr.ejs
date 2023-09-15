@@ -1,0 +1,47 @@
+<%- include("../templates/index")%> <%- include("../templates/menu")%>
+<div class="container mt-5">
+  <form action="/editar" method="post">
+    <div class="card">
+      <div class="card-header">
+        <h3>Editar usuario : <%= usuario.id %></h3>
+      </div>
+      <div class="card-body">
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="nombre"
+          id="nombre"
+          autofocus
+          value="<%= usuario.nombre %>"
+        />
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="usuario"
+          id="usuario"
+          value="<%= usuario.usuario %>"
+        />
+        <input
+          class="form-control mb-3"
+          type="password"
+          name="password"
+          id="password"
+          value="<%= usuario.password %>"
+        />
+        <input
+          class="form-control mb-3"
+          type="number"
+          name="edad"
+          id="edad"
+          value="<%= usuario.edad %>"
+        />
+      </div>
+      <div class="card-footer">
+        <button class="form control btn btn-success" type="submit">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<%- include("../templates/pie")%>

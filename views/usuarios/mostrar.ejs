@@ -7,20 +7,37 @@
     <div class="card-body">
       <table class="table table-striped table-hover">
         <thead>
-          <th>id</th>
+          <th>ID</th>
+          <th>Edad</th>
           <th>Nombre</th>
           <th>Usuario</th>
           <th>Password</th>
-          <th>Edad</th>
           <th>Editar</th>
           <th>Borrar</th>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
           <% usuarios.forEach((usuario, index) => { %>
           <tr>
-            <td><%= usuario.id %></td>
-            <td><%= usuario.nombre %></td>
-            <td><%= usuario.usuario %></td>
+            <td
+              style="border: none; background-color: transparent; cursor: none"
+            >
+              <%= usuario.id %>
+            </td>
+            <td
+              style="border: none; background-color: transparent; cursor: none"
+            >
+              <%= usuario.edad %>
+            </td>
+            <td
+              style="border: none; background-color: transparent; cursor: none"
+            >
+              <%= usuario.nombre %>
+            </td>
+            <td
+              style="border: none; background-color: transparent; cursor: none"
+            >
+              <%= usuario.usuario %>
+            </td>
             <td>
               <input
                 type="password"
@@ -28,7 +45,11 @@
                 name="password"
                 readonly
                 disabled
-                style="border: none; background-color: transparent;"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
                 value="<%= usuario.password %>"
               />
               <span class="input-group-btn">
@@ -42,16 +63,13 @@
                 </button>
               </span>
             </td>
-            <td><%= usuario.edad %></td>
             <td>
-              <a href="usuarios/modificarUsr" class="btn btn-warning"
+              <a href="/editar/<%= usuario.id %>" class="btn btn-warning"
                 ><i class="bi bi-pen-fill"></i
               ></a>
             </td>
             <td>
-              <a
-                href="/usuarios/eliminar/<%= usuario.id %>"
-                class="btn btn-danger"
+              <a href="/borrar/<%= usuario.id %>" class="btn btn-danger"
                 ><i class="bi bi-trash3-fill"></i
               ></a>
             </td>
@@ -62,13 +80,16 @@
     </div>
   </div>
 </div>
+
 <% usuarios.forEach((usuario, index) => { %>
-  <script>
-    $('#show_password<%= index %>').hover(function() {
-        $('#password<%= index %>').attr('type', 'text');
-    }, function () {
-        $('#password<%= index %>').attr('type', 'password');
-    });
-  </script>
-<% }); %>
-<%- include("../templates/pie")%>
+<script>
+  $("#show_password<%= index %>").hover(
+    function () {
+      $("#password<%= index %>").attr("type", "text");
+    },
+    function () {
+      $("#password<%= index %>").attr("type", "password");
+    }
+  );
+</script>
+<% }); %> <%- include("../templates/pie")%>

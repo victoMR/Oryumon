@@ -1,5 +1,5 @@
 var ruta = require("express").Router(); //variable de ruta
-var {mostrarUsuarios, nuevoUsuario}=require("../database/usuariosBD");
+var {mostrarUsuarios, nuevoUsuario, modificarUsuario, buscarPorID}=require("../database/usuariosBD");
 
 ruta.get("/", async (req,res)=>{ //req y res las declaramos aqui, see pueden llamar distinto
  var usuarios= await mostrarUsuarios();
@@ -12,12 +12,15 @@ ruta.post("/nuevousuario", async (req,res)=>{
   var error= await nuevoUsuario(req.body);
   res.redirect("/");
 })
-// ruta.get("/mostrar", async (req,res)=>{
-//   var usuarios= await mostrarUsuarios();
-//   res.render("usuarios/mostrar",{usuarios});
-// })
-// ruta.get("/usuarios/modificarUsr:id", async (req,res)=>{
-//   var usuarios= await mostrarUsuarios();
-//   res.render("usuarios/modificarUsr",{id});
-// })
+ruta.get("/editar/:id", async (req,res)=>{
+  var usuario= await buscarPorID(req.params.id);
+  res.render("usuarios/modificarUsr",{usuario});
+})
+ruta.get("borrar/:id", async (req,res)=>{
+  
+})
+ruta.post("/editar", async (req,res)=>{
+  var user = await modificarUsuario(req.body);
+  res.redirect("/",{user});
+})
 module.exports = ruta;

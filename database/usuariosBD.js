@@ -8,12 +8,9 @@ async function mostrarUsuarios(){
         usuarios.forEach(usuario => {
             //nuevas cosas
             var user=new Usuario(usuario.id, usuario.data());
-            console.log(usuario.id);
             if(user.bandera==0){
                 users.push(user.obtenerData);
             }
-            
-            
         });
         
     }
@@ -29,7 +26,7 @@ async function buscarPorID(id){
         var usuario=await conexion.doc(id).get(); // doc como registro en mysql
         var usuarioObjeto=new Usuario(usuario.id, usuario.data());
         if(usuarioObjeto.bandera==0){
-            user=usuarioObjeto;
+            user=usuarioObjeto.obtenerData;
         }
     }
     catch(err){
@@ -55,8 +52,8 @@ async function nuevoUsuario(datos){
 }
 
 
-async function modificarUsuario(datos){
-    var user=new Usuario(datos.id, datos);
+async function modificarUsuario( datos){
+    var user=new Usuario(id, datos);
     var error=1;
     if (user.bandera==0){
         try{

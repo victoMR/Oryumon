@@ -57,7 +57,9 @@ class Usuario {
                 edad: this.edad  // Se retorna el valor de la propiedad edad de el get edad
             }
         }
+        
     }
+    
 }
 
 module.exports = Usuario; // Se exporta la clase Usuario

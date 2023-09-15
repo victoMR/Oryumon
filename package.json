@@ -4,13 +4,15 @@
   "description": "Este es un proyecto de nodejs con firebase , para la creacion de un servidor de nodejs con firebase",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js", 
+    "start": "node index.js",
     "test": "nodemon index.js"
   },
   "keywords": [],
   "author": "Victor Manuel Rangel Mejia ",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.0",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
