@@ -53,12 +53,12 @@ async function nuevoUsuario(datos){
 
 
 async function modificarUsuario( datos){
-    var user=new Usuario(id, datos);
+    var user=new Usuario(datos.id, datos);
     var error=1;
     if (user.bandera==0){
         try{
 
-            await conexion.doc(user.id).set(user); 
+            await conexion.doc(user.id).set(user.obtenerData); 
             console.log("Registro acualizado");
             error=0;
         }catch(err){

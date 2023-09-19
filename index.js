@@ -7,6 +7,9 @@ dotenv.config(); // para usar el archivo .env
 var app = express(); // para crear el servidor
 
 app.set("view engine", "ejs"); // para usar ejs como motor de plantillas
+
+app.use(express.static("public"));
+
 app.use(express.json()); // para recibir datos en formato json
 app.use(express.urlencoded({ extended: true })); // para recibir datos de formularios
 app.use("/", routes); // para usar las rutas de usuarios

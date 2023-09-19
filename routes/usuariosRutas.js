@@ -20,7 +20,7 @@ ruta.get("borrar/:id", async (req,res)=>{
   
 })
 ruta.post("/editar", async (req,res)=>{
-  var user = await modificarUsuario(req.body);
-  res.redirect("/",{user});
+  var error= await modificarUsuario(req.body);
+  res.redirect("/");
 })
 module.exports = ruta;

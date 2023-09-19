@@ -8,6 +8,13 @@
       <div class="card-body">
         <input
           class="form-control mb-3"
+          type="hidden"
+          name="id"
+          id="id" 
+          value="<%= usuario.id %>"
+        />
+        <input
+          class="form-control mb-3"
           type="text"
           name="nombre"
           id="nombre"
@@ -33,12 +40,14 @@
           type="number"
           name="edad"
           id="edad"
+          min="13"
+          max="99"
           value="<%= usuario.edad %>"
         />
       </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
-          Guardar
+          Modificar usuario
         </button>
       </div>
     </div>
