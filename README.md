@@ -1,7 +1,7 @@
 # CRUD con firebase
 
-imagen del proyecto
-![imagen del proyecto](./public/img/firebase-icon.png)
+<img src="https://github.com/victoMR/PrimerConexionConFirabase/assets/77412296/d4a01788-1f86-4241-a936-7549c74a9319" alt="imagen del proyecto" width="20%" height="10%">
+
 
 Este proyecto es una aplicación web que utiliza Firebase como base de datos y Bootstrap para el diseño de la interfaz de usuario.
 Y se puede usar como boceto para un proyecto mas grande.
