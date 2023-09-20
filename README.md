@@ -1,7 +1,7 @@
 # CRUD con firebase
 
 imagen del proyecto
-![imagen del proyecto](img/firebase-icon.png)
+![imagen del proyecto](./public/img/firebase-icon.png)
 
 Este proyecto es una aplicación web que utiliza Firebase como base de datos y Bootstrap para el diseño de la interfaz de usuario.
 Y se puede usar como boceto para un proyecto mas grande.
