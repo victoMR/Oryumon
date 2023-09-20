@@ -25,11 +25,12 @@ ruta.post("/editar", async (req,res)=>{
 })
 // ELIMINAR
 ruta.get("/borrar/:id", async (req,res)=>{
-  var usuario= await buscarPorID(req.params.id);
-  res.render("usuarios/eliminarUsr",{usuario});
+  var usuario= await buscarPorID(req.params.id); // pordia ser await borrarUsuario(req.params.id);
+  res.render("usuarios/eliminarUsr",{usuario});  // res.redirect("/");
 })
 ruta.post("/borrar", async (req,res)=>{
   await borrarUsuario(req.body.id);
   res.redirect("/");
 })
+
 module.exports = ruta;
