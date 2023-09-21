@@ -3,7 +3,8 @@ var admin = require("firebase-admin");  // para usar firebase
 var keys = require("../keys.json");  // para usar las credenciales de firebase
 
 admin.initializeApp({
-    credential: admin.credential.cert(keys)  // para usar las credenciales de firebase
+    credential: admin.credential.cert(keys),  // para usar las credenciales de firebase
+    appName: 'miejemploBD'
 });
 
 var db = admin.firestore();  // para usar firestore

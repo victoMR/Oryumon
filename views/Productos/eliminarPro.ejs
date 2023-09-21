@@ -1,0 +1,56 @@
+<%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
+<div class="container mt-5">
+  <form action="/productos/productos/borrar" method="post">
+    <div class="card">
+      <div class="card-header text-center text-capitalize text-bg-primary ">
+        <h3>¿ Borrar Producto ? 🤔</h3>
+      </div>
+      <div class="card-body fs-5">
+        <p>¿Estás seguro de que deseas borrar este producto ? 🥺</p>
+        <p>Cual tiene estos atrivutos </p>
+        <ul>
+          <li>Nombre : <%= producto.nombre %></li>
+          <li>Descripcion : <%= producto.descripcion %></li>
+          <li>Precio : $<%= producto.precio %></li>
+          <li>Cantidad : #<%= producto.cantidad %></li>
+        </ul>
+      </div>
+      <div class="card-footer text-center">
+        <input type="hidden" name="id" id="id" value="<%= producto.id %>" />
+        <button class="btn btn-danger" type="submit">
+          <i class="bi bi-trash3-fill"></i> Borrar
+        </button>
+        <a href="/productos/productos" class="btn btn-secondary"> <i class="bi bi-arrow-bar-left"></i> Cancelar</a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<style>
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-header {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    margin-right: 10px;
+  }
+</style>

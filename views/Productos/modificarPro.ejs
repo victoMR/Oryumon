@@ -1,47 +1,57 @@
 <%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
 <div class="container mt-5">
-  <form action="/productos/productos/nuevoproducto" method="post">
+  <form action="/productos/productos/editar" method="post">
     <div class="card">
       <div class="card-header">
-        <h3>Nuevo Producto</h3>
+        <h3>Editar productio  : <%= producto.id %></h3>
       </div>
       <div class="card-body">
+        <input
+          class="form-control mb-3"
+          type="hidden"
+          name="id"
+          id="id" 
+          value="<%= producto.id %>"
+        />
+        <p>Nombre</p>
         <input
           class="form-control mb-3"
           type="text"
           name="nombre"
           id="nombre"
-          placeholder="Nombre"
           autofocus
-          autocomplete="name"
+          value="<%= producto.nombre %>"
         />
+        <p>Descripcion</p>
         <input
           class="form-control mb-3"
           type="text"
           name="descripcion"
           id="descripcion"
-          placeholder="Descripcion"
+          value="<%= producto.descripcion %>"
         />
+        <p>Precio</p>
         <input
           class="form-control mb-3"
           type="number"
           name="precio"
           id="precio"
-          placeholder="Precio"
+          value="<%= producto.precio %>"
         />
+        <p>Cantidad</p>
         <input
           class="form-control mb-3"
           type="number"
           name="cantidad"
           id="cantidad"
-          placeholder="Cantidad"
-          min="1"
-          max="5000"
+          min="13"
+          max="99"
+          value="<%= producto.cantidad %>"
         />
       </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
-          <i class="bi bi-check-circle"></i> Guardar
+          <i class="bi bi-check-circle"></i> Modificar producto
         </button>
         <a href="/productos/productos" class="btn btn-secondary"><i class="bi bi-arrow-bar-left"></i> Cancelar</a>
       </div>

@@ -6,7 +6,6 @@ async function mostrarUsuarios(){
     try{ 
         var usuarios= await conexion.get(); //trae toda la info de la tabla
         usuarios.forEach(usuario => {
-            //nuevas cosas
             var user=new Usuario(usuario.id, usuario.data());
             if(user.bandera==0){
                 users.push(user.obtenerData);
@@ -15,7 +14,7 @@ async function mostrarUsuarios(){
         
     }
     catch(err){
-        console.log("Error al recuperar usuarios en la base de datos"+err);
+        console.log("Error al recuperar usuarios en la base de datos DE USUARIOS"+err);
     }
     return users;
 }
