@@ -1,44 +1,131 @@
 <%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
 <div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h3>Productos</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-responsive-md" >
-                    <thead>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Precio</th>
-                        <th>Cantidad</th>
-                        <th>Editar</th>
-                        <th>Borrar</th>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <tr>
-                            <% productos.forEach((productos) => { %>
-                            <td style="border: none; background-color: transparent; cursor: none"><%= productos.id %></td>
-                            <td style="border: none; background-color: transparent; cursor: none"><%= productos.nombre %></td>
-                            <td style="border: none; background-color: transparent; cursor: none"><%= productos.descripcion %></td>
-                            <td style="border: none; background-color: transparent; cursor: none"><%= productos.precio %></td>
-                            <td style="border: none; background-color: transparent; cursor: none"><%= productos.cantidad %></td>
-                            <td>
-                                <a href="/productos/productos/editar/<%= productos.id %>" class="btn btn-warning"
-                                  ><i class="bi bi-pen-fill"></i
-                                ></a>
-                              </td>
-                              <td>
-                                <a href="/productos/productos/borrar/<%= productos.id %>" class="btn btn-danger"
-                                  ><i class="bi bi-trash3-fill"></i
-                                ></a>
-                              </td>
-                        </tr>
-                        <% }); %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div class="card">
+    <div class="card-header">
+      <h3>Productos</h3>
     </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-responsive-md">
+          <thead>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Editar</th>
+            <th>Borrar</th>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr>
+              <% let totalPrecio = 0; %> <% let totalCantidad = 0; %> 
+              <% productos.forEach((productos) => { %>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                <%= productos.id %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                <%= productos.nombre %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                <%= productos.descripcion %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                $<%= productos.precio %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                #<%= productos.cantidad %>
+              </td>
+              <td>
+                <a
+                  href="/productos/productos/editar/<%= productos.id %>"
+                  class="btn btn-warning"
+                  ><i class="bi bi-pen-fill"></i
+                ></a>
+              </td>
+              <td>
+                <a
+                  href="/productos/productos/borrar/<%= productos.id %>"
+                  class="btn btn-danger"
+                  ><i class="bi bi-trash3-fill"></i
+                ></a> 
+              </td>
+              <% totalPrecio += +productos.precio *+productos.cantidad; %> <!-- con el + se convierte en numero y con el * se multiplica y la suma se guarda en totalPrecio  -->
+              <% totalCantidad += +productos.cantidad; %>
+            </tr>
+            <% }); %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td
+                class="text-uppercase"
+                colspan="3"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                  font-weight: bold;
+                "
+              >Total :</td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: copy;
+                "
+              >
+                $<%= totalPrecio %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: copy;
+                "
+              >
+                #<%= totalCantidad %>
+              </td>
+              <td
+                colspan="2"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              ></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
