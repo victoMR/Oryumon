@@ -8,7 +8,7 @@ var {
 } = require("../database/productosBD");
 
 // PRODUCTOS
-rutaProduct.get("/productos", async (req, res) => {
+rutaProduct.get("/productos", async (req, res) => {  //index mas esto  = /productos/productos
   var productos = await mostrarProductos();
   res.render("productos/mostrarPro", { productos });
 });
