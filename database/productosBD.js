@@ -1,4 +1,5 @@
 var conexion=require("./conexionProBD");
+// var conexion=require("./conexion").conexionProductos;
 var Producto=require("../models/Productos");
 
 async function mostrarProductos() {

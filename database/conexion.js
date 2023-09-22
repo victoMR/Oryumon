@@ -10,5 +10,13 @@ admin.initializeApp({
 var db = admin.firestore();  // para usar firestore
 
 var conexion = db.collection("miejemploBD");  // para usar la coleccion de la base de datos
+// var conexionProductos = db.collection("productosDB");  // para usar la coleccion de la base de datos
 
 module.exports = conexion;  // para exportar la conexion
+
+/**
+ moduel.exports = {
+    conexion,
+    conexionProductos
+ }; // para exportar la conexion
+*/

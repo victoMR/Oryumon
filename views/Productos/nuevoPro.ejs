@@ -14,6 +14,7 @@
           placeholder="Nombre"
           autofocus
           autocomplete="name"
+          required
         />
         <input
           class="form-control mb-3"
@@ -21,15 +22,16 @@
           name="descripcion"
           id="descripcion"
           placeholder="Descripcion"
+          required
         />
         <div class="input-group mb-3">
           <span class="input-group-text">$</span>
-          <input type="text" class="form-control" aria-label="Precio" name="precio" id="precio" placeholder="1">
+          <input type="text" class="form-control" aria-label="Precio" name="precio" id="precio" placeholder="1" required>
           <span class="input-group-text">.00</span>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text">#</span>
-          <input type="text" class="form-control" aria-label="Cantidad" name="cantidad" id="cantidad">
+          <input type="text" class="form-control" aria-label="Cantidad" name="cantidad" id="cantidad" required>
         </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
