@@ -18,5 +18,5 @@ module.exports = conexion;  // para exportar la conexion
  moduel.exports = {
     conexion,
     conexionProductos
- }; // para exportar la conexion
+ }; para exportar la conexion
 */
