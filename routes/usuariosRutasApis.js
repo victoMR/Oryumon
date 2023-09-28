@@ -12,12 +12,13 @@ ruta.get("/api/mostrarusr", async (req,res)=>{ //req y res las declaramos aqui, 
   }
 });
 // NUEVO USR
-ruta.get("/nuevousuario", async (req,res)=>{
-  res.render("usuarios/nuevoUsr");
-})
-ruta.post("/nuevousuario", async (req,res)=>{
+ruta.post("/api/nuevousuario", async (req,res)=>{
   var error= await nuevoUsuario(req.body);
-  res.redirect("/");
+  if(error==0){
+    res.status(200).json("Usuario insertado 🥳");
+  }else{
+    res.status(400).json("Error al insertar usuario 🥺");
+  }
 });
 // EDITAR
 ruta.get("/api/buscarUsuarioPorId/:id", async (req,res)=>{
