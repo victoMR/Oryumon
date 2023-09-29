@@ -29,18 +29,32 @@ ruta.get("/api/buscarUsuarioPorId/:id", async (req,res)=>{
     res.status(200).json(usuario); 
   }
 });
-ruta.post("/editar", async (req,res)=>{
+ruta.post("/api/editarUsr", async (req,res)=>{
   var error= await modificarUsuario(req.body);
-  res.redirect("/");
+  if(error==0){
+    res.status(200).json("Usuario modificado 🥳");
+  }else{
+    res.status(400).json("Error al modificar usuario 🥺");
+  }
 });
 // ELIMINAR
-ruta.get("/borrar/:id", async (req,res)=>{
-  var usuario= await buscarPorID(req.params.id); // pordia ser await borrarUsuario(req.params.id);
-  res.render("usuarios/eliminarUsr",{usuario});  // res.redirect("/");
+ruta.get("/api/borrarUsr/:id", async (req,res)=>{
+  var error= await borrarUsuario(req.params.id);
+  if(error==0){
+    res.status(200).json("Usuario eliminado 🥳");
+  }
+  else{
+    res.status(400).json("Error al eliminar usuario 🥺");
+  }
 });
-ruta.post("/borrar", async (req,res)=>{
-  await borrarUsuario(req.body.id);
-  res.redirect("/");
+ruta.post("/api/borrarUsr", async (req,res)=>{
+  var error= await borrarUsuario(req.params.id);
+  if(error==0){
+    res.status(200).json("Usuario eliminado 🥳");
+  }
+  else{
+    res.status(400).json("Error al eliminar usuario 🥺");
+  }
 });
 
 module.exports = ruta;

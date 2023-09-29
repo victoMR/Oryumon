@@ -4,6 +4,7 @@ var cors = require("cors");
 var routes = require("./routes/usuariosRutas"); // para usar las rutas de usuarios
 var productosRutas = require("./routes/productosRutas"); // para usar las rutas de productos
 var rutasUsuariosApis = require("./routes/usuariosRutasApis"); // para usar las rutas de usuarios
+var rutaProductApis = require("./routes/productosRutasApi"); // para usar las rutas de productos
 dotenv.config(); // para usar el archivo .env
 
 var app = express(); // para crear el servidor
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true })); // para recibir datos de formul
 app.use("/", routes); // para usar las rutas de usuarios
 app.use("/productos", productosRutas); // para usar las rutas de productos
 app.use("/", rutasUsuariosApis); // para usar las rutas de usuarios puede ser nombrrado con / por que ya esta en el index de rutas
+app.use("/productos", rutaProductApis); // para usar las rutas de productos
 
 
 var port = process.env.PORT || 8181;
