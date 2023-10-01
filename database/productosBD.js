@@ -36,17 +36,23 @@ async function nuevoProducto(datos) {
 }
 
 async function buscarPorIDPro(id) {
-  var producto = "";
+  var producto = null; //inicio la variable producto
+  
   try {
-    var producto = await conexion.doc(id).get();
-    var productoObjeto = new Producto(producto.id, producto.data());
-    if (productoObjeto.bandera == 0) {
-      producto = productoObjeto.obtenerData;
+    var productoDoc = await conexion.doc(id).get(); //busca el producto por id
+    
+    if (productoDoc.exists) {
+      producto = new Producto(productoDoc.id, productoDoc.data());  //si lo encuentra 
+      
+      if (producto.bandera == 0) { //si el producto existe y no esta vacio lo retorna
+        producto = producto.obtenerData; //retorna el producto
+      }
     }
   } catch (err) {
-    console.log("Error al recuperar al producto" + err);
+    console.log("Error al recuperar al producto" + err); //si no lo encuentra
   }
-  return producto;
+  
+  return producto; // retonrna si no encuentra nada
 }
 
 async function nuevoProducto(datos) {
@@ -84,18 +90,23 @@ async function modificarProducto(datos) {
 
 async function borrarProducto(id) {
   var error = 1;
-  var producto = await buscarPorIDPro(id);
-  if (producto != "") {
+  var producto = await buscarPorIDPro(id); //busca el producto por id
+  
+  if (producto !== null && Object.keys(producto).length > 0) { //si el producto existe y no esta vacio lo borra
     try {
       await conexion.doc(id).delete();
-      console.log("Producto eliminado de la BD");
+      console.log("Producto eliminado de la BD");  //si lo encuentra
       error = 0;
     } catch (err) {
-      console.log("Error al eliminar producto" + err);
+      console.log("Error al eliminar producto" + err); //si no lo encuentra
     }
+  } else {
+    console.log("Producto no encontrado"); //si no lo encuentra
   }
-  return error;
+  
+  return error; //retorna si no encuentra nada
 }
+
 
 module.exports = {
   mostrarProductos,

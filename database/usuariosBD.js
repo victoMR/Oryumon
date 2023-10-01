@@ -73,8 +73,7 @@ async function borrarUsuario(id) {
   var user = await buscarPorID(id);
   if (user != "") {
     try {
-      var resFirebase = await conexion.doc(id).delete();
-      console.log(resFirebase);
+      await conexion.doc(id).delete();
       console.log("Registro borrado");
       error = 0;
     } catch (err) {

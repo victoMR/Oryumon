@@ -19,13 +19,20 @@ rutaProduct.get("/productos/api/mostrarProductos", async (req, res) => {  //inde
 });
 // Buscar por id
 rutaProduct.get("/productos/api/buscarPorIdProducto/:id", async (req, res) => {
-  var producto = await buscarPorIDPro(req.params.id);
-  if (producto == "") {
-    res.status(400).json("No hay productos con ese ID 🥺");
-  } else {
-    res.status(200).json(producto);
+  try {
+    var producto = await buscarPorIDPro(req.params.id);
+    
+    if (!producto) {
+      res.status(404).json("No se encontró ningún producto con ese ID 🥺");
+    } else {
+      res.status(200).json(producto);
+    }
+  } catch (err) {
+    console.error("Error al buscar producto: " + err);
+    res.status(500).json("Error interno del servidor al buscar producto 🥺");
   }
 });
+
 // NUEVO PRO
 rutaProduct.post("/productos/api/nuevoproducto", async (req, res) => {
   var error = await nuevoProducto(req.body);
@@ -51,7 +58,7 @@ rutaProduct.get("/productos/api/borrarProducto/:id", async (req, res) => {
     if (error == 0) {
       res.status(200).json("Producto eliminado 🥳");
     } else {
-      res.status(400).json("Error al eliminar producto 🥺");
+      res.status(400).json("No existe el producto con ese id 🥺");
     }
 });
 
