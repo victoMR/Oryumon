@@ -12,6 +12,16 @@
           <li>Nombre : <%= usuario.nombre %></li>
           <li>Usuario : <%= usuario.usuario %></li>
           <li>Contraseña : <%= usuario.password %></li>
+          <div class="avatar-container">
+            <img
+              height="20%"
+              width="15%"
+              src="/uploads/<%= usuario.foto %>"
+              alt="Foto de <%= usuario.nombre %>"
+              class="img-fluid rounded-circle"
+            />
+          </div>
+          <li>Foto : <%= usuario.foto %></li>
           <li>Edad : <%= usuario.edad %></li>
         </ul>
       </div>

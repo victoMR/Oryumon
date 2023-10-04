@@ -1,6 +1,7 @@
 <%- include("../templates/index")%> <%- include("../templates/menu")%>
 <div class="container mt-5">
-  <form action="/nuevousuario" method="post">
+  <form action="/nuevousuario" method="post" enctype="multipart/form-data">
+    <!--enctype para enviar archivos binarios-->
     <div class="card">
       <div class="card-header">
         <h3>Nuevo Usuario</h3>
@@ -39,12 +40,20 @@
           min="13"
           max="99"
         />
+        <input 
+        class="form-control mb-3" 
+        type="file" 
+        name="foto" 
+        id="foto" 
+        />
       </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
           <i class="bi bi-check-circle"></i> Guardar
         </button>
-        <a href="/" class="btn btn-secondary"><i class="bi bi-arrow-bar-left"></i> Cancelar</a>
+        <a href="/" class="btn btn-secondary"
+          ><i class="bi bi-arrow-bar-left"></i> Cancelar</a
+        >
       </div>
     </div>
   </form>

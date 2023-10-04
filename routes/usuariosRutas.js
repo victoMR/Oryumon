@@ -1,6 +1,7 @@
 var ruta = require("express").Router(); //variable de ruta
 var {mostrarUsuarios, nuevoUsuario, modificarUsuario, buscarPorID, borrarUsuario}=require("../database/usuariosBD");
-
+//middleware para subir archivos
+var subirArchivo=require("../middlewares/subirArchivo");
 //PRINCIPAL
 ruta.get("/", async (req,res)=>{ //req y res las declaramos aqui, see pueden llamar distinto
  var usuarios= await mostrarUsuarios();
@@ -10,7 +11,8 @@ ruta.get("/", async (req,res)=>{ //req y res las declaramos aqui, see pueden lla
 ruta.get("/nuevousuario", async (req,res)=>{
   res.render("usuarios/nuevoUsr");
 })
-ruta.post("/nuevousuario", async (req,res)=>{
+ruta.post("/nuevousuario", subirArchivo(), async (req,res)=>{
+  req.body.foto=req.file.originalname;
   var error= await nuevoUsuario(req.body);
   res.redirect("/");
 })
@@ -19,7 +21,7 @@ ruta.get("/editar/:id", async (req,res)=>{
   var usuario= await buscarPorID(req.params.id);
   res.render("usuarios/modificarUsr",{usuario});
 })
-ruta.post("/editar", async (req,res)=>{
+ruta.post("/editar", subirArchivo(), async (req,res)=>{
   var error= await modificarUsuario(req.body);
   res.redirect("/");
 })

@@ -9,9 +9,10 @@
         <table class="table table-striped table-hover table-responsive-md">
           <thead>
             <th>ID</th>
-            <th>Edad</th>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Usuario</th>
+            <th>Edad</th>
             <th>Password</th>
             <th>Editar</th>
             <th>Borrar</th>
@@ -20,24 +21,60 @@
             <% usuarios.forEach((usuario, index) => { %>
             <tr>
               <td
-                style="border: none; background-color: transparent; cursor: none"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
               >
                 <%= usuario.id %>
               </td>
               <td
-                style="border: none; background-color: transparent; cursor: none"
+                class="user-avatar text-center align-middle align-content-lg-center"
+                style="
+                  border: none;
+                  cursor: none;
+                  background-attachment: fixed;
+                  height: 4%;
+                  width: 2%;
+                  align-items: center;
+                "
               >
-                <%= usuario.edad %>
+                <div class="avatar-container">
+                  <img
+                    src="/uploads/<%= usuario.foto %>"
+                    alt="Foto de <%= usuario.nombre %>"
+                    class="img-fluid rounded-circle"
+                  />
+                </div>
               </td>
+
               <td
-                style="border: none; background-color: transparent; cursor: none"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
               >
                 <%= usuario.nombre %>
               </td>
               <td
-                style="border: none; background-color: transparent; cursor: none"
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
               >
                 <%= usuario.usuario %>
+              </td>
+              <td
+                style="
+                  border: none;
+                  background-color: transparent;
+                  cursor: none;
+                "
+              >
+                <%= usuario.edad %>
               </td>
               <td>
                 <input
@@ -79,7 +116,6 @@
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
 </div>

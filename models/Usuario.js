@@ -5,7 +5,8 @@ class Usuario {
         this.nombre = data.nombre;  // Propiedades de la clase
         this.usuario = data.usuario;  // Propiedades de la clase
         this.password = data.password;  // Propiedades de la clase
-        this.edad = data.edad;  // Propiedades de la clase
+        this.edad = data.edad;  // Propiedades de la 
+        this.foto = data.foto;  // Propiedades de la clase
     }
     // Metodos de la clase
     set id(id) {
@@ -25,6 +26,9 @@ class Usuario {
     set edad(edad) {
         edad > 0 ? this._edad = edad : this.bandera = 1; // Si la edad es mayor a 0, se asigna a la propiedad _edad, si no, se asigna 1 a la propiedad bandera
     }
+    set foto(foto) {
+        foto.length > 0 ? this._foto = foto : this.bandera = 1; // Si la foto es mayor a 0, se asigna a la propiedad _foto, si no, se asigna 1 a la propiedad bandera
+    }
     get id() {
     return this._id; // Se retorna el valor de la propiedad _id
     }
@@ -40,6 +44,9 @@ class Usuario {
     get edad() {
     return this._edad;  // Se retorna el valor de la propiedad _edad
     }
+    get foto() {
+    return this._foto;  // Se retorna el valor de la propiedad _foto
+    }
     get obtenerData(){
         if(this._id !=null)
         return {
@@ -47,14 +54,16 @@ class Usuario {
             nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
             usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
             password: this.password,  // Se retorna el valor de la propiedad password de el get password
-            edad: this.edad  // Se retorna el valor de la propiedad edad de el get edad
+            edad: this.edad, // Se retorna el valor de la propiedad edad de el get edad
+            foto: this.foto
         }
         else{
             return {
                 nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
                 usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
                 password: this.password,  // Se retorna el valor de la propiedad password de el get password
-                edad: this.edad  // Se retorna el valor de la propiedad edad de el get edad
+                edad: this.edad,  // Se retorna el valor de la propiedad edad de el get edad
+                foto: this.foto
             }
         }
         
