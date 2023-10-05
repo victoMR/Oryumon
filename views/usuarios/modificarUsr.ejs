@@ -1,6 +1,6 @@
 <%- include("../templates/index")%> <%- include("../templates/menu")%>
 <div class="container mt-5">
-  <form action="/editar" method="post">
+  <form action="/editar" method="post" enctype="multipart/form-data">
     <div class="card">
       <div class="card-header">
         <h3>Editar usuario : <%= usuario.id %></h3>
@@ -10,7 +10,7 @@
           class="form-control mb-3"
           type="hidden"
           name="id"
-          id="id" 
+          id="id"
           value="<%= usuario.id %>"
         />
         <input
@@ -28,12 +28,20 @@
           id="usuario"
           value="<%= usuario.usuario %>"
         />
-        <input 
-        class="form-control mb-3" 
-        type="file" 
-        name="foto" 
-        id="foto" 
-        value="<%= usuario.foto %>"
+        <img
+          class="user-avatar img-fluid m-3"
+          style="border-radius: 10px"
+          src="/uploads/<%= usuario.foto %>"
+          alt="Foto de perfil"
+          width="100px"
+        />
+        <br />
+        <input
+          class="form-control mb-3"
+          type="file"
+          name="foto"
+          id="foto"
+          value="<%= usuario.foto %>"
         />
         <input
           class="form-control mb-3"
@@ -56,7 +64,9 @@
         <button class="form control btn btn-success" type="submit">
           <i class="bi bi-check-circle"></i> Modificar usuario
         </button>
-        <a href="/" class="btn btn-secondary"><i class="bi bi-arrow-bar-left"></i> Cancelar</a>
+        <a href="/" class="btn btn-secondary"
+          ><i class="bi bi-arrow-bar-left"></i> Cancelar</a
+        >
       </div>
     </div>
   </form>

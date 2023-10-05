@@ -2,24 +2,25 @@
 <div class="container mt-5">
   <form action="/borrar" method="post">
     <div class="card">
-      <div class="card-header text-center text-capitalize text-bg-primary ">
+      <div class="card-header text-center text-capitalize text-bg-primary">
         <h3>¿ Borrar usuario ? 🤔</h3>
       </div>
       <div class="card-body fs-5">
         <p>¿Estás seguro de que deseas borrar este usuario? 🥺</p>
-        <p>Cual tiene estos atrivutos </p>
+        <p>Cual tiene estos atrivutos</p>
         <ul>
           <li>Nombre : <%= usuario.nombre %></li>
           <li>Usuario : <%= usuario.usuario %></li>
           <li>Contraseña : <%= usuario.password %></li>
           <div class="avatar-container">
             <img
-              height="20%"
-              width="15%"
+              class="user-avatar img-fluid m-3"
+              style="border-radius: 10px"
               src="/uploads/<%= usuario.foto %>"
-              alt="Foto de <%= usuario.nombre %>"
-              class="img-fluid rounded-circle"
+              alt="Foto de perfil"
+              width="100px"
             />
+            <br />
           </div>
           <li>Foto : <%= usuario.foto %></li>
           <li>Edad : <%= usuario.edad %></li>
@@ -30,7 +31,9 @@
         <button class="btn btn-danger" type="submit">
           <i class="bi bi-trash3-fill"></i> Borrar
         </button>
-        <a href="/" class="btn btn-secondary"> <i class="bi bi-arrow-bar-left"></i> Cancelar</a>
+        <a href="/" class="btn btn-secondary">
+          <i class="bi bi-arrow-bar-left"></i> Cancelar</a
+        >
       </div>
     </div>
   </form>
