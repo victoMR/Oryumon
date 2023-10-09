@@ -18,6 +18,7 @@
           class="user-avatar img-fluid m-3"
           style="border-radius: 10px"
           src="/uploadsProducts/<%= producto.foto %>"
+          title="<%= producto.foto %>"
           alt="Foto de producto"
           width="100px"
         />
@@ -28,6 +29,9 @@
           name="foto"
           id="foto"
           value="<%= producto.foto %>"
+          title="<%= producto.foto %>"
+          text="<%= producto.foto %>"
+          alt="<%= producto.foto %>"
         />
         <p>Nombre</p>
         <input

@@ -6,7 +6,7 @@ var {
   buscarPorIDPro,
   borrarProducto,
 } = require("../database/productosBD");
-var subirImagen = require("../middlewares/subirArchivo");
+var subirImagen = require("../middlewares/subirArchivoProduct");
 var fs = require('fs');
 // PRODUCTOS
 rutaProduct.get("/productos/api/mostrarProductos", async (req, res) => {  //index mas esto  = /productos/productos
@@ -47,7 +47,7 @@ rutaProduct.post("/productos/api/nuevoproducto", subirImagen(), async (req, res)
 
 // EDITAR
 rutaProduct.post("/productos/api/editarProducto",  subirImagen(), async (req, res) => {
-  var producto = await buscarPorID(req.body.id); // Obtener el usuario antes del if
+  var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
   if (req.file) {
     req.body.foto = req.file.originalname;
   } else {
