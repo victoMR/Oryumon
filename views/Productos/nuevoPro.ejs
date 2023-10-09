@@ -1,6 +1,6 @@
 <%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
 <div class="container mt-5">
-  <form action="/productos/productos/nuevoproducto" method="post">
+  <form action="/productos/productos/nuevoproducto" method="post" enctype="multipart/form-data">
     <div class="card">
       <div class="card-header">
         <h3>Nuevo Producto</h3>
@@ -15,6 +15,12 @@
           autofocus
           autocomplete="name"
           required
+        />
+        <input 
+        class="form-control mb-3" 
+        type="file" 
+        name="foto" 
+        id="foto" 
         />
         <input
           class="form-control mb-3"

@@ -9,6 +9,7 @@
         <table class="table table-striped table-hover table-responsive-md">
           <thead>
             <th>ID</th>
+            <th>Foto</th>
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Precio</th>
@@ -28,6 +29,25 @@
                 "
               >
                 <%= productos.id %>
+              </td>
+              <td
+                class="user-avatar text-center align-middle align-content-lg-center"
+                style="
+                  border: none;
+                  cursor: none;
+                  background-attachment: fixed;
+                  height: 4%;
+                  width: 2%;
+                  align-items: center;
+                "
+              >
+                <div class="avatar-container">
+                  <img
+                    src="/uploadsProducts/<%= productos.foto %>"
+                    alt="Foto de <%= productos.nombre %>"
+                    class="img-fluid rounded-circle"
+                  />
+                </div>
               </td>
               <td
                 style="
@@ -88,7 +108,7 @@
             <tr>
               <td
                 class="text-uppercase"
-                colspan="3"
+                colspan="4"
                 style="
                   border: none;
                   background-color: transparent;
@@ -129,3 +149,4 @@
     </div>
   </div>
 </div>
+<%- include("../templates/pie")%>

@@ -7,6 +7,7 @@ var {
   borrarUsuario,
 } = require("../database/usuariosBD");
 var subirImagen = require("../middlewares/subirArchivo");
+var fs = require('fs');
 //PRINCIPAL
 ruta.get("/api/mostrarusr", async (req, res) => {
   //req y res las declaramos aqui, see pueden llamar distinto
@@ -66,6 +67,12 @@ ruta.get("/api/borrarUsr/:id", async (req, res) => {
   }
 });
 ruta.post("/api/borrarUsr", async (req, res) => {
+  var usuario = await buscarPorID(req.params.id);
+  if (usuario) {
+    var fotoUsuario = usuario.foto;
+    fs.unlinkSync("public/img/${fotoUsuario}"); // Borrar la foto
+  }
+  
   var error = await borrarUsuario(req.params.id);
   if (error == 0) {
     res.status(200).json("Usuario eliminado 🥳");

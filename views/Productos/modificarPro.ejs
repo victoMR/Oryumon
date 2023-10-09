@@ -1,6 +1,6 @@
 <%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
 <div class="container mt-5">
-  <form action="/productos/productos/editar" method="post">
+  <form action="/productos/productos/editar" method="post" enctype="multipart/form-data">
     <div class="card">
       <div class="card-header">
         <h3>Editar productio  : <%= producto.id %></h3>
@@ -12,6 +12,22 @@
           name="id"
           id="id" 
           value="<%= producto.id %>"
+        />
+        <p>Imagen</p>
+        <img
+          class="user-avatar img-fluid m-3"
+          style="border-radius: 10px"
+          src="/uploadsProducts/<%= producto.foto %>"
+          alt="Foto de producto"
+          width="100px"
+        />
+        <br />
+        <input
+          class="form-control mb-3"
+          type="file"
+          name="foto"
+          id="foto"
+          value="<%= producto.foto %>"
         />
         <p>Nombre</p>
         <input

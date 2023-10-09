@@ -10,6 +10,17 @@
         <p>Cual tiene estos atrivutos </p>
         <ul>
           <li>Nombre : <%= producto.nombre %></li>
+          <li>Foto : <%= producto.foto %></li>
+          <div class="avatar-container text-center align-content-center">
+            <img
+              class="user-avatar img-fluid m-3"
+              style="border-radius: 10px"
+              src="/uploadsProducts/<%= producto.foto %>"
+              alt="Foto de producto"
+              width="100px"
+            />
+            <br />
+          </div>
           <li>Descripcion : <%= producto.descripcion %></li>
           <li>Precio : $<%= producto.precio %></li>
           <li>Cantidad : #<%= producto.cantidad %></li>
@@ -54,3 +65,4 @@
     margin-right: 10px;
   }
 </style>
+<%- include("../templates/pie")%>

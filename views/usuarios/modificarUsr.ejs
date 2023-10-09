@@ -13,21 +13,7 @@
           id="id"
           value="<%= usuario.id %>"
         />
-        <input
-          class="form-control mb-3"
-          type="text"
-          name="nombre"
-          id="nombre"
-          autofocus
-          value="<%= usuario.nombre %>"
-        />
-        <input
-          class="form-control mb-3"
-          type="text"
-          name="usuario"
-          id="usuario"
-          value="<%= usuario.usuario %>"
-        />
+        <p>Imagen</p>
         <img
           class="user-avatar img-fluid m-3"
           style="border-radius: 10px"
@@ -41,8 +27,29 @@
           type="file"
           name="foto"
           id="foto"
+          placeholder=" <%= usuario.foto %>"
+          title=" <%= usuario.foto %>"
+          text="<%= usuario.foto %>"
           value="<%= usuario.foto %>"
         />
+        <p>Nombre</p>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="nombre"
+          id="nombre"
+          autofocus
+          value="<%= usuario.nombre %>"
+        />
+        <p>Usuario</p>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="usuario"
+          id="usuario"
+          value="<%= usuario.usuario %>"
+        />
+        <p>Contraseña</p>
         <input
           class="form-control mb-3"
           type="text"
@@ -50,6 +57,7 @@
           id="password"
           value="<%= usuario.password %>"
         />
+        <p>Edad</p>
         <input
           class="form-control mb-3"
           type="number"

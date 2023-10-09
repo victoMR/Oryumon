@@ -5,6 +5,7 @@ class Producto {
     this.descripcion = datos.descripcion;
     this.precio = datos.precio;
     this.cantidad = datos.cantidad;
+    this.foto = datos.foto;  // Propiedades de la clase
     this.bandera = 0;
   }
   set id(id) {
@@ -26,6 +27,9 @@ class Producto {
   set cantidad(cantidad) {
     cantidad.length > 0 ? (this._cantidad = cantidad) : (this.bandera = 1);
   }
+  set foto(foto) {
+    foto.length > 0 ? this._foto = foto : this.bandera = 1; // Si la foto es mayor a 0, se asigna a la propiedad _foto, si no, se asigna 1 a la propiedad bandera
+}
   get id() {
     return this._id;
   }
@@ -41,6 +45,9 @@ class Producto {
   get cantidad() {
     return this._cantidad;
   }
+  get foto() {
+    return this._foto;  // Se retorna el valor de la propiedad _foto
+    }
   get obtenerData() {
     if (this._id != null) {
       return {
@@ -49,6 +56,7 @@ class Producto {
         descripcion: this.descripcion,
         precio: this.precio,
         cantidad: this.cantidad,
+        foto: this.foto
       };
     } else {
       return {
@@ -56,6 +64,7 @@ class Producto {
         descripcion: this.descripcion,
         precio: this.precio,
         cantidad: this.cantidad,
+        foto: this.foto
       };
     }
   }

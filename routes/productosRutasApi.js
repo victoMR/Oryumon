@@ -6,7 +6,8 @@ var {
   buscarPorIDPro,
   borrarProducto,
 } = require("../database/productosBD");
-
+var subirImagen = require("../middlewares/subirArchivo");
+var fs = require('fs');
 // PRODUCTOS
 rutaProduct.get("/productos/api/mostrarProductos", async (req, res) => {  //index mas esto  = /productos/productos
   var productos = await mostrarProductos();
@@ -34,7 +35,8 @@ rutaProduct.get("/productos/api/buscarPorIdProducto/:id", async (req, res) => {
 });
 
 // NUEVO PRO
-rutaProduct.post("/productos/api/nuevoproducto", async (req, res) => {
+rutaProduct.post("/productos/api/nuevoproducto", subirImagen(), async (req, res) => {
+  req.body.foto = req.file.originalname;
   var error = await nuevoProducto(req.body);
   if (error == 0) {
     res.status(200).json("Producto insertado 🥳");
@@ -44,7 +46,13 @@ rutaProduct.post("/productos/api/nuevoproducto", async (req, res) => {
 });
 
 // EDITAR
-rutaProduct.post("/productos/api/editarProducto", async (req, res) => {
+rutaProduct.post("/productos/api/editarProducto",  subirImagen(), async (req, res) => {
+  var producto = await buscarPorID(req.body.id); // Obtener el usuario antes del if
+  if (req.file) {
+    req.body.foto = req.file.originalname;
+  } else {
+    req.body.foto = producto.foto; // Mantener la foto existente
+  }
     var error = await modificarProducto(req.body);
     if (error == 0) {
       res.status(200).json("Producto modificado 🥳");
@@ -54,6 +62,11 @@ rutaProduct.post("/productos/api/editarProducto", async (req, res) => {
 });
 // ELIMINAR
 rutaProduct.get("/productos/api/borrarProducto/:id", async (req, res) => {
+  var producto = await buscarPorID(req.params.id);
+  if (producto) {
+    var productoImg = producto.foto;
+    fs.unlinkSync("public/img/${producto}"); // Borrar la foto
+  }
     var error = await borrarProducto(req.params.id);
     if (error == 0) {
       res.status(200).json("Producto eliminado 🥳");

@@ -29,7 +29,7 @@ async function buscarPorID(id) {
       user = usuarioObjeto.obtenerData;
     }
   } catch (err) {
-    console.log("Error al recuperar al usuario" + err);
+    console.log("Error al recuperar al usuario " + err);
   }
   return user;
 }

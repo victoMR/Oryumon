@@ -1,6 +1,11 @@
 <%- include("../templates/index")%> <%- include("../templates/menu")%>
 <div class="container mt-5">
   <form action="/borrar" method="post">
+    <input
+      type="hidden"
+      name="id"
+      value="<%= usuario.id %>"
+    />
     <div class="card">
       <div class="card-header text-center text-capitalize text-bg-primary">
         <h3>¿ Borrar usuario ? 🤔</h3>
@@ -10,9 +15,8 @@
         <p>Cual tiene estos atrivutos</p>
         <ul>
           <li>Nombre : <%= usuario.nombre %></li>
-          <li>Usuario : <%= usuario.usuario %></li>
-          <li>Contraseña : <%= usuario.password %></li>
-          <div class="avatar-container">
+          <li>Foto : <%= usuario.foto %></li>
+          <div class="avatar-container text-center align-content-center">
             <img
               class="user-avatar img-fluid m-3"
               style="border-radius: 10px"
@@ -22,12 +26,12 @@
             />
             <br />
           </div>
-          <li>Foto : <%= usuario.foto %></li>
+          <li>Usuario : <%= usuario.usuario %></li>
+          <li>Contraseña : <%= usuario.password %></li>
           <li>Edad : <%= usuario.edad %></li>
         </ul>
       </div>
       <div class="card-footer text-center">
-        <input type="hidden" name="id" id="id" value="<%= usuario.id %>" />
         <button class="btn btn-danger" type="submit">
           <i class="bi bi-trash3-fill"></i> Borrar
         </button>
@@ -67,3 +71,4 @@
     margin-right: 10px;
   }
 </style>
+<%- include("../templates/pie")%>

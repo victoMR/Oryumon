@@ -1,4 +1,78 @@
+<div class="container mt-5">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <div class="form-check form-switch">
+          <i id="iconoModoDia" class="bi bi-sun" style="margin-right: 5px;"></i>
+          <input class="form-check-input" type="checkbox" id="modoOscuroToggle" />
+  
+          <label class="form-check-label" for="modoOscuroToggle">
+            <i id="iconoModoOscuro" class="bi bi-moon-fill"></i>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Estilos para el modo oscuro */
+    *.dark-mode {
+      background-color: #222;
+      color: #fff;
+    }
 
+    /* Estilos para el modo día */
+    *.light-mode {
+      background-color: #fff;
+      color: #333;
+    }
+  
+  /* Estilos para los íconos */
+  #iconoModoOscuro {
+    margin-right: 5px;
+    color: #f39c12;
+    /* Color amarillo */
+  }
 
-</body>
-</html>
+  #iconoModoDia {
+    display: none;
+    margin-left: 5px;
+    color: #f1c40f;
+    /* Color amarillo */
+  }
+
+  </style>
+  <script>
+    const modoOscuroToggle = document.getElementById("modoOscuroToggle");
+    const iconoModoOscuro = document.getElementById("iconoModoOscuro");
+    const iconoModoDia = document.getElementById("iconoModoDia");
+  
+    // Función para cambiar el modo de color y el ícono
+    function toggleModoOscuro() {
+      if (modoOscuroToggle.checked) {
+        document.body.classList.remove("light-mode");
+        document.body.classList.add("dark-mode");
+        iconoModoOscuro.style.display = "inline"; // Ocultar el ícono de luna
+        iconoModoDia.style.display = "none";
+        localStorage.setItem("modoOscuro", "true");
+      } else {
+        document.body.classList.remove("dark-mode");
+        document.body.classList.add("light-mode");
+        iconoModoOscuro.style.display = "inline"; // Mostrar el ícono de luna
+        iconoModoDia.style.display = "none"; // Ocultar el ícono de sol
+        localStorage.setItem("modoOscuro", "false");
+      }
+    }
+  
+    // Escuchar el cambio de estado del interruptor
+    modoOscuroToggle.addEventListener("change", toggleModoOscuro);
+  
+    // Verificar y aplicar el estado del interruptor al cargar la página
+    const modoOscuroGuardado = localStorage.getItem("modoOscuro");
+    if (modoOscuroGuardado === "true") {
+      modoOscuroToggle.checked = true;
+      toggleModoOscuro();
+    }
+  </script>
+  </body>
+  </html>
+  

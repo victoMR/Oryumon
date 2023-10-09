@@ -1,7 +1,7 @@
 <%- include("../templates/index")%> <%- include("../templates/menu")%>
 <div class="container mt-5">
   <form action="/nuevousuario" method="post" enctype="multipart/form-data">
-    <!--enctype para enviar archivos binarios-->
+    <!-- enctype para enviar archivos binarios -->
     <div class="card">
       <div class="card-header">
         <h3>Nuevo Usuario</h3>
@@ -16,6 +16,7 @@
           autofocus
           autocomplete="name"
         />
+        <input class="form-control mb-3" type="file" name="foto" id="foto" />
         <input
           class="form-control mb-3"
           type="text"
@@ -31,20 +32,23 @@
           placeholder="Password"
           autocomplete="current-password"
         />
+        <div class="password-validation mt-2">
+          <ul>
+            <li id="length">Mínimo 8 caracteres</li>
+            <li id="special">Al menos 1 carácter especial</li>
+            <li id="number">Al menos 2 números</li>
+            <li id="unique">Sin caracteres repetidos</li>
+          </ul>
+        </div>
+
         <input
           class="form-control mb-3"
           type="number"
           name="edad"
           id="edad"
-          placeholder="edad"
+          placeholder="Edad"
           min="13"
           max="99"
-        />
-        <input 
-        class="form-control mb-3" 
-        type="file" 
-        name="foto" 
-        id="foto" 
         />
       </div>
       <div class="card-footer">
@@ -58,4 +62,74 @@
     </div>
   </form>
 </div>
+<style>
+  /* Estilos para los mensajes de validación */
+  .password-validation {
+    margin-top: 10px;
+  }
+
+  .password-validation ul {
+    padding-left: 20px;
+    list-style: none;
+  }
+
+  .password-validation li::before {
+    content: "\2022"; /* Círculo de viñeta */
+    color: #dc3545; /* Color rojo de Bootstrap */
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+
+  /* Estilos para los mensajes de validación que cumplen los requisitos */
+  .password-validation li.valid {
+    color: #28a745; /* Color verde de Bootstrap */
+  }
+
+  /* Fuente de Google Fonts */
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Función para actualizar los mensajes de validación de contraseña
+    function updatePasswordValidation() {
+      const password = $("#password").val();
+
+      const lengthMessage = $("#length");
+      const specialMessage = $("#special");
+      const numberMessage = $("#number");
+      const uniqueMessage = $("#unique");
+
+      // Validaciones
+      const minLength = 8;
+      const minSpecialChars = 1;
+      const minNumbers = 2;
+      const hasRepeatedChars = /(.)\1/.test(password);
+
+      lengthMessage.toggleClass("valid", password.length >= minLength);
+      specialMessage.toggleClass(
+        "valid",
+        (password.match(/[^A-Za-z0-9]/g) || []).length >= minSpecialChars
+      );
+      numberMessage.toggleClass(
+        "valid",
+        (password.match(/\d/g) || []).length >= minNumbers
+      );
+      uniqueMessage.toggleClass("valid", !hasRepeatedChars);
+    }
+
+    // Actualizar mensajes de validación en tiempo real
+    $("#password").on("input", updatePasswordValidation);
+
+    // Inicializar mensajes de validación
+    updatePasswordValidation();
+  });
+</script>
 <%- include("../templates/pie")%>
