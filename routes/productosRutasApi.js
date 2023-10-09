@@ -62,17 +62,27 @@ rutaProduct.post("/productos/api/editarProducto",  subirImagen(), async (req, re
 });
 // ELIMINAR
 rutaProduct.get("/productos/api/borrarProducto/:id", async (req, res) => {
-  var producto = await buscarPorID(req.params.id);
+  const producto = await buscarPorIDPro(req.params.id);
   if (producto) {
-    var productoImg = producto.foto;
-    fs.unlinkSync("public/img/${producto}"); // Borrar la foto
-  }
-    var error = await borrarProducto(req.params.id);
-    if (error == 0) {
-      res.status(200).json("Producto eliminado 🥳");
+    if (req.file) {
+      req.body.foto = req.file.originalname;
     } else {
-      res.status(400).json("No existe el producto con ese id 🥺");
+      req.body.foto = producto.foto; // Mantener la foto existente
     }
+    fs.unlink(`./public/uploadsProducts/${producto.foto}`, (err) => {
+      if (err) {
+        console.error("Error al eliminar el archivo: " + err);
+      } else {
+        console.log("Archivo eliminado exitosamente");
+      }
+    });
+  }
+  var error = await borrarProducto(req.params.id);
+  if (error == 0) {
+    res.status(200).json("Producto eliminado 🥳");
+  } else {
+    res.status(400).json("No existe el producto con ese id 🥺");
+  }
 });
 
 module.exports = rutaProduct;
