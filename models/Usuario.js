@@ -5,6 +5,7 @@ class Usuario {
         this.nombre = data.nombre;  // Propiedades de la clase
         this.usuario = data.usuario;  // Propiedades de la clase
         this.password = data.password;  // Propiedades de la clase
+        this.salt = data.salt;  // Propiedades de la clase
         this.edad = data.edad;  // Propiedades de la 
         this.foto = data.foto;  // Propiedades de la clase
     }
@@ -22,6 +23,9 @@ class Usuario {
     }
     set password(password) {
         password.length > 0 ? this._password = password : this.bandera = 1; // Si el password es mayor a 0, se asigna a la propiedad _password, si no, se asigna 1 a la propiedad bandera
+    }
+    set salt(salt) {
+        salt.length > 0 ? this._salt = salt : this.bandera = 1; // Si el salt es mayor a 0, se asigna a la propiedad _salt, si no, se asigna 1 a la propiedad bandera
     }
     set edad(edad) {
         edad > 0 ? this._edad = edad : this.bandera = 1; // Si la edad es mayor a 0, se asigna a la propiedad _edad, si no, se asigna 1 a la propiedad bandera
@@ -41,6 +45,9 @@ class Usuario {
     get password() {
     return this._password;  // Se retorna el valor de la propiedad _password
     }
+    get salt() {
+    return this._salt;  // Se retorna el valor de la propiedad _salt
+    }
     get edad() {
     return this._edad;  // Se retorna el valor de la propiedad _edad
     }
@@ -54,6 +61,7 @@ class Usuario {
             nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
             usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
             password: this.password,  // Se retorna el valor de la propiedad password de el get password
+            salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
             edad: this.edad, // Se retorna el valor de la propiedad edad de el get edad
             foto: this.foto
         }
@@ -62,6 +70,7 @@ class Usuario {
                 nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
                 usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
                 password: this.password,  // Se retorna el valor de la propiedad password de el get password
+                salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
                 edad: this.edad,  // Se retorna el valor de la propiedad edad de el get edad
                 foto: this.foto
             }

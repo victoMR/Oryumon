@@ -2,6 +2,8 @@ var conexion = require("./conexion");
 // var conexionUsuarios=require("./conexion").conexion;
 var Usuario = require("../models/Usuario");
 
+var { encriptarPassword } = require("../middlewares/funcionesPassword");
+
 async function mostrarUsuarios() {
   var users = [];
   try {
@@ -35,6 +37,9 @@ async function buscarPorID(id) {
 }
 
 async function nuevoUsuario(datos) {
+  var { hash, salt } = encriptarPassword(datos.password);
+  datos.password = hash;
+  datos.salt = salt;
   var user = new Usuario(null, datos);
   var error = 1;
   if (user.bandera == 0) {
