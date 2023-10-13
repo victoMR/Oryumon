@@ -13,6 +13,12 @@
           id="id"
           value="<%= usuario.id %>"
         />
+        <input
+          type="hidden"
+          name="passwordAnterior"
+          id="passwordAnterior"
+          value="<%= usuario.password %>"
+        />
         <p>Imagen</p>
         <img
           class="user-avatar img-fluid m-3"
@@ -50,13 +56,17 @@
           value="<%= usuario.usuario %>"
         />
         <p>Contraseña</p>
+        <% if (error) { %>
+        <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
         <input
           class="form-control mb-3"
           type="text"
           name="password"
           id="password"
-          value="<%= usuario.password %>"
+          placeholder="Escribe un nuevo password o deja en blanco para no cambiarlo"
         />
+
         <p>Edad</p>
         <input
           class="form-control mb-3"

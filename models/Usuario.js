@@ -1,37 +1,61 @@
 class Usuario {
-    constructor(id, data) { // Constructor de la clase
+    constructor(id, data) { // Constructor de la clase con password para modificar usuario sin cambiar la contraseña
         this.bandera = 0; // Propiedades de la clase
-        this.id = id;  // Propiedades de la clase
-        this.nombre = data.nombre;  // Propiedades de la clase
-        this.usuario = data.usuario;  // Propiedades de la clase
-        this.password = data.password;  // Propiedades de la clase
-        this.salt = data.salt;  // Propiedades de la clase
-        this.edad = data.edad;  // Propiedades de la 
-        this.foto = data.foto;  // Propiedades de la clase
+        this._id = id;  // Propiedades de la clase
+        this._nombre = data.nombre;  // Propiedades de la clase
+        this._usuario = data.usuario;  // Propiedades de la clase
+        this._password = data.password;  // Propiedades de la clase
+        this._salt = data.salt;  // Propiedades de la clase
+        this._edad = data.edad;  // Propiedades de la 
+        this._foto = data.foto;  // Propiedades de la clase
     }
+    // constructor(id, data, password) { // Constructor de la clase con password para modificar usuario sin cambiar la contraseña 
+    //     this.bandera = 0; // Propiedades de la clase
+    //     this.id = id;  // Propiedades de la clase
+    //     this.nombre = data.nombre;  // Propiedades de la clase
+    //     this.usuario = data.usuario;  // Propiedades de la clase
+    //     this.password = data.password;  // Propiedades de la clase
+
+    //     this.salt = data.salt;  // Propiedades de la clase
+    //     this.edad = data.edad;  // Propiedades de la 
+    //     this.foto = data.foto;  // Propiedades de la clase
+    // }
     // Metodos de la clase
-    set id(id) {
-        if (id != null) { // Si el id es nulo, se asigna 0 a la propiedad bandera
-            id.length>0?this._id=id:this.bandera=1; // Si el id es mayor a 0, se asigna a la propiedad _id, si no, se asigna 1 a la propiedad bandera
+    set id(value) {
+        if (value != null) {
+            value.length > 0 ? this._id = value : this.bandera = 1;
         }
     }
-    set nombre(nombre) {
-        nombre.length > 0 ? this._nombre = nombre : this.bandera = 1; // Si el nombre es mayor a 0, se asigna a la propiedad _nombre, si no, se asigna 1 a la propiedad bandera primero se asigna el valor de la propiedad nombre a la propiedad _nombre
+    set nombre(value) {
+        value.length > 0 ? this._nombre = value : this.bandera = 1;
+        console.log("nombre " + this.bandera);
     }
-    set usuario(usuario) {
-        usuario.length > 0 ? this._usuario = usuario : this.bandera = 1;  // Si el usuario es mayor a 0, se asigna a la propiedad _usuario, si no, se asigna 1 a la propiedad bandera
+    
+    set usuario(value) {
+        value.length > 0 ? this._usuario = value : this.bandera = 1;
+        console.log("usr " + this.bandera);
     }
-    set password(password) {
-        password.length > 0 ? this._password = password : this.bandera = 1; // Si el password es mayor a 0, se asigna a la propiedad _password, si no, se asigna 1 a la propiedad bandera
+
+    
+    set password(value) {
+        value.length > 0 ? this._password = value : this.bandera = 1;
+        console.log("pass " + this.bandera);
+        console.log("pass " + this._password + "ss");
     }
-    set salt(salt) {
-        salt.length > 0 ? this._salt = salt : this.bandera = 1; // Si el salt es mayor a 0, se asigna a la propiedad _salt, si no, se asigna 1 a la propiedad bandera
+    
+    set salt(value) {
+        value.length > 0 ? this._salt = value : this.bandera = 1;
+        console.log("salt " + this.bandera);
     }
-    set edad(edad) {
-        edad > 0 ? this._edad = edad : this.bandera = 1; // Si la edad es mayor a 0, se asigna a la propiedad _edad, si no, se asigna 1 a la propiedad bandera
+    
+    set edad(value) {
+        value > 0 ? this._edad = edad : this.bandera = 1;
+        console.log("ed " + this.bandera);
     }
-    set foto(foto) {
-        foto.length > 0 ? this._foto = foto : this.bandera = 1; // Si la foto es mayor a 0, se asigna a la propiedad _foto, si no, se asigna 1 a la propiedad bandera
+    
+    set foto(value) {
+        value.length > 0 ? this._foto = foto : this.bandera = 1;
+        console.log("foto " + this.bandera);
     }
     get id() {
     return this._id; // Se retorna el valor de la propiedad _id

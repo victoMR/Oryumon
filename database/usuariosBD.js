@@ -59,14 +59,15 @@ async function modificarUsuario(datos) {
   if (usuarioBuscar != "") {
     var user = new Usuario(datos.id, datos);
     var error = 1;
-
+    // console.log(user);
     if (user.bandera == 0) {
       try {
         await conexion.doc(user.id).set(user.obtenerData);
-        console.log("Registro acualizado");
+        console.log("Registro actualizado");
         error = 0;
       } catch (err) {
         console.log("Error al modificar usuario" + err);
+        throw err; // Lanzar el error para que se propague hacia arriba
       }
     }
   }

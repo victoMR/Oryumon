@@ -27,7 +27,7 @@
             <br />
           </div>
           <li>Usuario : <%= usuario.usuario %></li>
-          <li>Contraseña : <%= usuario.password %></li>
+          <li>Contraseña : <%= usuario.password.slice(0, 10) %> ... y <%= usuario.password.length - 10 %> caracteres restantes</li>
           <li>Edad : <%= usuario.edad %></li>
         </ul>
       </div>
