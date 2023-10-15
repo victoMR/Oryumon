@@ -1,0 +1,72 @@
+<%- include("../templates/index") %>
+<%- include("../templates/menu") %>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        border-radius: 10px 10px 0 0;
+        padding: 20px;
+    }
+
+    .user-avatar {
+        border-radius: 50%;
+        border: 4px solid #f8f9fa;
+        animation: breathe 10s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .card-footer {
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        padding: 20px;
+    }
+</style>
+
+<div class="container mt-5" style="cursor: none;">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3>Detalles del Usuario: <%= usuario.nombre %></h3>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <img class="user-avatar img-fluid rounded-circle animate__animated animate__zoomInDown" style="width: 150px; height: 150px; object-fit: cover;" src="/uploads/<%= usuario.foto %>" alt="Foto de perfil">
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 text-muted fs-5">Nombre:</div>
+                <div class="col-md-9 fs-5"><strong><%= usuario.nombre %></strong></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 text-muted fs-5">Usuario:</div>
+                <div class="col-md-9 fs-5"><strong><%= usuario.usuario %></strong></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 text-muted fs-5">Edad:</div>
+                <div class="col-md-9 fs-5"><strong><%= usuario.edad %></strong></div>
+            </div>
+        </div>
+        <div class="card-footer bg-light text-end  animate__animated animate__zoomInDown">
+            <a href="/" class="btn btn-secondary">
+                <i class="bi bi-arrow-bar-left"></i> Cerrar Sesión
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include("../templates/pie") %>

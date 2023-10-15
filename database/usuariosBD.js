@@ -2,7 +2,12 @@ var conexion = require("./conexion");
 // var conexionUsuarios=require("./conexion").conexion;
 var Usuario = require("../models/Usuario");
 
-var { encriptarPassword } = require("../middlewares/funcionesPassword");
+var crypto = require("crypto");
+
+var {
+  encriptarPassword,
+  compararPassword,
+} = require("../middlewares/funcionesPassword");
 
 async function mostrarUsuarios() {
   var users = [];
@@ -89,10 +94,40 @@ async function borrarUsuario(id) {
   return error;
 }
 
+async function buscarPorUsuario(usuario) {
+  var user = null; // Inicializar user como null
+  try {
+    var usuarios = await conexion.where("usuario", "==", usuario).get();
+    usuarios.forEach((usuario) => {
+      var usuarioObjeto = new Usuario(usuario.id, usuario.data());
+      console.log("id " + usuarioObjeto.id);
+      if (usuarioObjeto && usuarioObjeto.bandera === 0) {
+        // Comprobar si usuarioObjeto no es null o undefined
+        user = usuarioObjeto.obtenerData; //
+      }
+    });
+  } catch (err) {
+    console.log("Error al recuperar el usuario: " + err);
+  }
+  return user;
+}
+
+async function verificarPassword(password, hash, salt) {
+  if (typeof salt !== "string") {
+    throw new Error("Salt debe ser una cadena");
+  }
+  var hashEvaluar = crypto
+    .scryptSync(password, salt, 100000, 64, "sha512")
+    .toString("hex");
+  return hashEvaluar === hash;
+}
+
 module.exports = {
   mostrarUsuarios,
   buscarPorID,
   nuevoUsuario,
   modificarUsuario,
   borrarUsuario,
+  buscarPorUsuario,
+  verificarPassword,
 };

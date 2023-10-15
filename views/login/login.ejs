@@ -1,0 +1,39 @@
+<%- include("../templates/index")%> 
+<%- include("../templates/menu")%>
+<div class="p-5" ></div>
+<div class="container animate__animated animate__rubberBand">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title text-lg-center fs-2">Inicio de sesión</h5>
+
+            <% if(mensaje){ %>
+              <div class="alert alert-danger" role="alert">
+                <%= mensaje %>
+              </div>
+            <% } %>
+   
+            <form action="/login" method="post">
+              <div class="form-group p-2">
+                <label for="usuario">Usuario</label>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su usuario">
+              </div>
+              <div class="form-group p-2">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
+              </div>
+              <div class="p-2"></div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary text-center">Iniciar sesión</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <p>¿No tienes una cuenta? <a href="/signup">Crear nuevo usuario</a></p>
+        </div>
+      </div>
+    </div>
+</div>
+<%- include("../templates/pie")%>

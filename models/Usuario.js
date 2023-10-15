@@ -28,34 +28,27 @@ class Usuario {
     }
     set nombre(value) {
         value.length > 0 ? this._nombre = value : this.bandera = 1;
-        console.log("nombre " + this.bandera);
     }
     
     set usuario(value) {
         value.length > 0 ? this._usuario = value : this.bandera = 1;
-        console.log("usr " + this.bandera);
     }
 
     
     set password(value) {
         value.length > 0 ? this._password = value : this.bandera = 1;
-        console.log("pass " + this.bandera);
-        console.log("pass " + this._password + "ss");
     }
     
     set salt(value) {
         value.length > 0 ? this._salt = value : this.bandera = 1;
-        console.log("salt " + this.bandera);
     }
     
     set edad(value) {
         value > 0 ? this._edad = edad : this.bandera = 1;
-        console.log("ed " + this.bandera);
     }
     
     set foto(value) {
         value.length > 0 ? this._foto = foto : this.bandera = 1;
-        console.log("foto " + this.bandera);
     }
     get id() {
     return this._id; // Se retorna el valor de la propiedad _id

@@ -15,27 +15,34 @@ const {
 const fs = require("fs").promises;
 //middleware para borrar archivos
 //PRINCIPAL
-ruta.get("/", async (req, res) => {
-  //req y res las declaramos aqui, see pueden llamar distinto
-  var usuarios = await mostrarUsuarios();
-  res.render("usuarios/mostrar", { usuarios });
+ruta.get("/usuarios", async (req, res) => {
+  try {
+    // Lógica para obtener los usuarios
+    var usuarios = await mostrarUsuarios();
+
+    res.render("usuarios/mostrar", { usuarios: usuarios }); // Pasa los usuarios a la plantilla
+  } catch (error) {
+    console.log("Error al obtener usuarios: " + error);
+    res.render("error", { error: "Error al obtener usuarios" }); // Manejo de errores
+  }
 });
+
 // NUEVO USR
-ruta.get("/nuevousuario", async (req, res) => {
+ruta.get("/usuarios/nuevousuario", async (req, res) => {
   res.render("usuarios/nuevoUsr");
 });
-ruta.post("/nuevousuario", subirArchivo(), async (req, res) => {
+ruta.post("/usuarios/nuevousuario", subirArchivo(), async (req, res) => {
   req.body.foto = req.file.originalname;
   var error = await nuevoUsuario(req.body);
-  res.redirect("/");
+  res.redirect("/usuarios/usuarios");
 });
 // EDITAR
-ruta.get("/editar/:id", async (req, res) => {
+ruta.get("/usuarios/editar/:id", async (req, res) => {
   var usuario = await buscarPorID(req.params.id);
   res.render("usuarios/modificarUsr", { usuario, error: null });
 });
 
-ruta.post("/editar", subirArchivo(), async (req, res) => {
+ruta.post("/usuarios/editar", subirArchivo(), async (req, res) => {
   // Buscar usuario por ID
   var usuario = await buscarPorID(req.body.id);
 
@@ -58,7 +65,7 @@ ruta.post("/editar", subirArchivo(), async (req, res) => {
       req.body.salt = salt;
       req.body.foto = req.file ? req.file.originalname : usuario.foto; // Actualizar el valor de req.body.foto
       var error = await modificarUsuario(req.body);
-      res.redirect("/");
+      res.redirect("/usuarios/usuarios");
     }
   } else {
     // Si no se proporciona una nueva contraseña, mantener la contraseña y la sal existentes
@@ -66,20 +73,20 @@ ruta.post("/editar", subirArchivo(), async (req, res) => {
     req.body.salt = usuario.salt;
     req.body.foto = req.file ? req.file.originalname : usuario.foto; // Actualizar el valor de req.body.foto
     var error = await modificarUsuario(req.body);
-    res.redirect("/");
+    res.redirect("/usuarios/usuarios");
   }
 });
 
 // ...
 
 // ELIMINAR
-ruta.get("/borrar/:id", async (req, res) => {
+ruta.get("/usuarios/borrar/:id", async (req, res) => {
   var usuario = await buscarPorID(req.params.id); // pordia ser await borrarUsuario(req.params.id);
   console.log(req.params.id);
   res.render("usuarios/eliminarUsr", { usuario }); // res.redirect("/");
 });
 
-ruta.post("/borrar", async (req, res) => {
+ruta.post("/usuarios/borrar", async (req, res) => {
   const userId = req.body.id; // Accede al id desde req.body
   console.log(userId);
   try {
@@ -99,7 +106,7 @@ ruta.post("/borrar", async (req, res) => {
     await borrarUsuario(userId);
     error = 0;
 
-    res.redirect("/");
+    res.redirect("/usuarios/usuarios");
   } catch (error) {
     console.error("Error al borrar la foto o usuario:", error);
     res.status(500).send("Error al borrar la foto o usuario");

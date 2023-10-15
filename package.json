@@ -11,6 +11,7 @@
   "author": "Victor Manuel Rangel Mejia ",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.0",
     "cors": "^2.8.5",

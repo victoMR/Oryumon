@@ -1,6 +1,6 @@
 <%- include("../templates/index")%> <%- include("../templates/menu")%>
 <div class="container mt-5">
-  <form action="/borrar" method="post">
+  <form action="/usuarios/usuarios/borrar" method="post">
     <input
       type="hidden"
       name="id"
@@ -35,7 +35,7 @@
         <button class="btn btn-danger" type="submit">
           <i class="bi bi-trash3-fill"></i> Borrar
         </button>
-        <a href="/" class="btn btn-secondary">
+        <a href="/usuarios/usuarios" class="btn btn-secondary">
           <i class="bi bi-arrow-bar-left"></i> Cancelar</a
         >
       </div>
