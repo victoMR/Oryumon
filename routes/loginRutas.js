@@ -2,8 +2,7 @@ var rutalogin = require("express").Router(); //variable de ruta
 var {
   buscarPorUsuario,
   verificarPassword,
-  nuevoUsuario,
-  mostrarUsuarios,
+  nuevoUsuario
 } = require("../database/usuariosBD");
 
 //middleware para subir archivos
@@ -18,16 +17,15 @@ rutalogin.post("/login", async (req, res) => {
   var { usuario, password } = req.body;
   var usuarioEncontrado = await buscarPorUsuario(usuario);
   if (usuarioEncontrado) {
-    var resultado = verificarPassword(
+    var resultado = await verificarPassword(
       password,
       usuarioEncontrado.password,
       usuarioEncontrado.salt
     );
     if (resultado) {
-      // res.redirect("/usuarios/usuarios");
       res.render("login/mostrarPropiedadesUsr", { usuario: usuarioEncontrado });
     } else {
-      res.render("login/login", { mensaje: "Contraseña incorrecta" });
+      res.render("login/login", { mensaje: "La contraseña que ingresaste : "+password+" es incorecta " });
     }
   } else {
     res.render("login/login", { mensaje: "Usuario no encontrado" });

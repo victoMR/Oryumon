@@ -30,13 +30,13 @@
                 <%= usuario.id %>
               </td>
               <td
-                class="user-avatar text-center align-middle align-content-lg-center"
+                class="user-avatar img-fluid m-3"
                 style="
                   border: none;
                   cursor: none;
                   background-attachment: fixed;
-                  height: 6%;
-                  width: 7%;
+                  height: 45px;
+                  width: 35px;
                   align-items: center;
                 "
               >
@@ -102,12 +102,16 @@
                 </span>
               </td>
               <td>
-                <a href="/usuarios/usuarios/editar/<%= usuario.id %>" class="btn btn-warning"
+                <a
+                  href="/usuarios/usuarios/editar/<%= usuario.id %>"
+                  class="btn btn-warning"
                   ><i class="bi bi-pen-fill"></i
                 ></a>
               </td>
               <td>
-                <a href="/usuarios/usuarios/borrar/<%= usuario.id %>" class="btn btn-danger"
+                <a
+                  href="/usuarios/usuarios/borrar/<%= usuario.id %>"
+                  class="btn btn-danger"
                   ><i class="bi bi-trash3-fill"></i
                 ></a>
               </td>

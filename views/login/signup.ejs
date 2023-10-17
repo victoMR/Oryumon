@@ -1,4 +1,4 @@
-<%- include("../templates/index")%> <%- include("../templates/menu")%>
+<%- include("../templates/index")%> <%- include("../templates/menuLogin")%>
 <div class="container mt-5">
   <form action="/usuarios/usuarios/nuevousuario" method="post" enctype="multipart/form-data">
     <!-- enctype para enviar archivos binarios -->
@@ -7,6 +7,7 @@
         <h3>Nuevo Usuario</h3>
       </div>
       <div class="card-body">
+        <div class="p-0 m-2">Nombre</div>
         <input
           class="form-control mb-3"
           type="text"
@@ -16,7 +17,9 @@
           autofocus
           autocomplete="name"
         />
+        <div class="p-0 m-2">Foto</div>
         <input class="form-control mb-3" type="file" name="foto" id="foto" />
+        <div class="p-0 m-2">Usuario</div>
         <input
           class="form-control mb-3"
           type="text"
@@ -24,6 +27,7 @@
           id="usuario"
           placeholder="Usuario"
         />
+        <div class="p-0 m-2">Contraseña</div>
         <input
           class="form-control mb-3"
           type="password"
@@ -40,7 +44,7 @@
             <li id="unique">Sin caracteres repetidos</li>
           </ul>
         </div>
-
+        <div class="p-0 m-2">Edad</div>
         <input
           class="form-control mb-3"
           type="number"
