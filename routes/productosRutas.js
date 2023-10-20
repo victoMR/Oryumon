@@ -7,6 +7,10 @@ var {
   borrarProducto,
 } = require("../database/productosBD");
 
+const { encriptarPassword,
+  autorizado,
+  admin } = require("../middlewares/funcionesPassword");
+
 //middleware para subir archivos
 var subirArchivo = require("../middlewares/subirArchivoProduct");
 const fs = require("fs").promises;
@@ -19,7 +23,7 @@ rutaProduct.get("/productos", async (req, res) => {
   res.render("productos/mostrarPro", { productos });
 });
 // NUEVO PRO
-rutaProduct.get("/productos/nuevoproducto", async (req, res) => {
+rutaProduct.get("/productos/nuevoproducto",admin, async (req, res) => {
   res.render("productos/nuevoPro");
 });
 rutaProduct.post(

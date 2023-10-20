@@ -5,25 +5,26 @@ var {
   modificarUsuario,
   buscarPorID,
   borrarUsuario,
+  buscarPorUsuario,
 } = require("../database/usuariosBD");
 //middleware para subir archivos
 var subirArchivo = require("../middlewares/subirArchivo");
 const {
   encriptarPassword,
   compararPassword,
+  autorizado,
 } = require("../middlewares/funcionesPassword");
 const fs = require("fs").promises;
 //middleware para borrar archivos
 //PRINCIPAL
-ruta.get("/usuarios", async (req, res) => {
+ruta.get("/usuarios",autorizado, async (req, res) => {
   try {
     // Lógica para obtener los usuarios
     var usuarios = await mostrarUsuarios();
-
     res.render("usuarios/mostrar", { usuarios: usuarios }); // Pasa los usuarios a la plantilla
   } catch (error) {
     console.log("Error al obtener usuarios: " + error);
-    res.render("error", { error: "Error al obtener usuarios" }); // Manejo de errores
+    res.render("login/login", { mensaje: "No has iniciado sesion" });
   }
 });
 
@@ -76,8 +77,6 @@ ruta.post("/usuarios/editar", subirArchivo(), async (req, res) => {
     res.redirect("/usuarios/usuarios");
   }
 });
-
-// ...
 
 // ELIMINAR
 ruta.get("/usuarios/borrar/:id", async (req, res) => {

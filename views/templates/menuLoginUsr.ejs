@@ -41,41 +41,41 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link rounded-5"
-                id="profile-tab2"
+                id="productos-tab"
                 data-bs-toggle="tab"
                 type="button"
                 role="tab"
                 aria-selected="false"
               >
-              <i class="bi bi-card-list"></i>
+              <i class="bi bi-file-plus-fill"></i>
               </button>
             </li>
             <li class="nav-item" role="presentation">
-              <button
-                class="nav-link rounded-5"
-                id="crearusr"
-                data-bs-toggle="tab"
-                type="button"
-                role="tab"
-                aria-selected="false"
-              >
-              <i class="bi bi-plus-circle"></i>
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link rounded-5"
-                id="logout-tab"
-                data-bs-toggle="tab"
-                type="button"
-                role="tab"
-                aria-selected="false"
-              >
-              <i class="bi bi-person-down"></i>
-              </button>
-            </li>
+                <button
+                  class="nav-link rounded-5"
+                  id="logout-tab"
+                  data-bs-toggle="tab"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                >
+                <i class="bi bi-person-down"></i>
+                </button>
+              </li>
           </ul>
         </ul>
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-1"
+            type="hidden"
+            placeholder="Buscar"
+            aria-label="Buscar"
+            
+          />
+          <button class="btn btn-outline-success" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
       </div>
     </div>
   </nav>
@@ -83,15 +83,10 @@
     document
       .getElementById("home-tab")
       .addEventListener("click", function () {
-        window.location.href = "/productos/productos";
+        window.location.href = "/";
       });
-    document
-      .getElementById("profile-tab2")
-      .addEventListener("click", function () {
-        window.location.href = "/productos/productos";
-      });
-    document.getElementById("crearusr").addEventListener("click", function () {
-      window.location.href = "/productos/productos/nuevoproducto";
+    document.getElementById("productos-tab").addEventListener("click", function () {
+      window.location.href = "/productos/productos";
     });
     document.getElementById("logout-tab").addEventListener("click", function () {
       window.location.href = "/logout";

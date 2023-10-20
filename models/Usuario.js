@@ -8,18 +8,8 @@ class Usuario {
         this._salt = data.salt;  // Propiedades de la clase
         this._edad = data.edad;  // Propiedades de la 
         this._foto = data.foto;  // Propiedades de la clase
+        this._admin = data.admin  // Propiedades de la clase
     }
-    // constructor(id, data, password) { // Constructor de la clase con password para modificar usuario sin cambiar la contraseña 
-    //     this.bandera = 0; // Propiedades de la clase
-    //     this.id = id;  // Propiedades de la clase
-    //     this.nombre = data.nombre;  // Propiedades de la clase
-    //     this.usuario = data.usuario;  // Propiedades de la clase
-    //     this.password = data.password;  // Propiedades de la clase
-
-    //     this.salt = data.salt;  // Propiedades de la clase
-    //     this.edad = data.edad;  // Propiedades de la 
-    //     this.foto = data.foto;  // Propiedades de la clase
-    // }
     // Metodos de la clase
     set id(value) {
         if (value != null) {
@@ -50,6 +40,9 @@ class Usuario {
     set foto(value) {
         value.length > 0 ? this._foto = foto : this.bandera = 1;
     }
+    set admin(value) {
+        this._admin = admin;
+    }
     get id() {
     return this._id; // Se retorna el valor de la propiedad _id
     }
@@ -71,6 +64,9 @@ class Usuario {
     get foto() {
     return this._foto;  // Se retorna el valor de la propiedad _foto
     }
+    get admin() {
+    return this._admin;  // Se retorna el valor de la propiedad _rol
+    }
     get obtenerData(){
         if(this._id !=null)
         return {
@@ -80,7 +76,8 @@ class Usuario {
             password: this.password,  // Se retorna el valor de la propiedad password de el get password
             salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
             edad: this.edad, // Se retorna el valor de la propiedad edad de el get edad
-            foto: this.foto
+            foto: this.foto,  // Se retorna el valor de la propiedad foto de el get foto
+            admin: this.admin
         }
         else{
             return {
@@ -89,7 +86,8 @@ class Usuario {
                 password: this.password,  // Se retorna el valor de la propiedad password de el get password
                 salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
                 edad: this.edad,  // Se retorna el valor de la propiedad edad de el get edad
-                foto: this.foto
+                foto: this.foto,
+                admin: this.admin
             }
         }
         

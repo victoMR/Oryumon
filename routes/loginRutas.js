@@ -7,7 +7,9 @@ var {
 
 //middleware para subir archivos
 var subirArchivo = require("../middlewares/subirArchivo");
-const { encriptarPassword } = require("../middlewares/funcionesPassword");
+const { encriptarPassword,
+autorizado,
+admin } = require("../middlewares/funcionesPassword");
 
 rutalogin.get("/", async (req, res) => {
   res.render("login/login", { mensaje: null });
@@ -23,17 +25,30 @@ rutalogin.post("/login", async (req, res) => {
       usuarioEncontrado.salt
     );
     if (resultado) {
-      res.render("login/mostrarPropiedadesUsr", { usuario: usuarioEncontrado });
+      if (usuarioEncontrado.admin) {
+        req.session.admin = req.body.usuario; 
+        res.redirect("/productos/productos");
+      }else{
+        req.session.usuario = req.body.usuario; 
+        res.render("login/mostrarPropiedadesUsr", { usuario: usuarioEncontrado });
+      }
     } else {
       res.render("login/login", { mensaje: "La contraseña que ingresaste : "+password+" es incorecta " });
     }
   } else {
-    res.render("login/login", { mensaje: "Usuario no encontrado" });
+    res.render("login/login", { mensaje: "El usuario ; "+usuario+" no existe"});
   }
+});
+rutalogin.get("/logout", async (req, res) => {
+  req.session = null;
+  res.redirect("/");
 });
 
 // Ruta para mostrar las propiedades del usuario
 rutalogin.get("/mostrarPropiedadesUsr", async (req, res) => {
+  if(req.session.usuario == null){
+    res.render("login/login", { mensaje: "No has iniciado sesion" });
+  }else{
   try {
     // Lógica para obtener el usuario
     var usuarioEncontrado = await buscarPorUsuario(req.body.usuario); // Asegúrate de pasar el usuario o su identificación aquí
@@ -43,6 +58,7 @@ rutalogin.get("/mostrarPropiedadesUsr", async (req, res) => {
     console.log("Error al obtener el usuario: " + error);
     res.render("error", { error: "Error al obtener el usuario" }); // Manejo de errores
   }
+}
 });
 
 rutalogin.get("/signup", async (req, res) => {

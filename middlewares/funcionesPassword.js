@@ -1,3 +1,4 @@
+const { log } = require('console');
 var crypto = require('crypto');
 
 function encriptarPassword(password) {
@@ -15,6 +16,26 @@ function compararPassword(password, hash, salt) {
 
 };
 
+function autorizado(req, res, cb) {;
+    if (req.session.usuario || req.session.admin) {
+      cb();
+    } else {
+        res.render("login/login", { mensaje: "No has iniciado sesion" });
+    }
+  };
+
+  function admin(req, res, cb) {
+    if (req.session.admin) {
+      cb();
+    } else {
+        if(req.session.usuario){
+            res.redirect("/usuarios/usuarios");
+    }else{
+        res.render("login/login", { mensaje: "No has iniciado sesion" });
+    }
+}
+};
+
 // var {salt,hash}=encriptarPassword('123456');
 // // console.log(salt);
 // console.log(hash);
@@ -22,5 +43,7 @@ function compararPassword(password, hash, salt) {
 
 module.exports = {
     encriptarPassword,
-    compararPassword
+    compararPassword,
+    autorizado,
+    admin
 }

@@ -15,6 +15,7 @@ async function mostrarUsuarios() {
     var usuarios = await conexion.get(); //trae toda la info de la tabla
     usuarios.forEach((usuario) => {
       var user = new Usuario(usuario.id, usuario.data());
+      
       if (user.bandera == 0) {
         users.push(user.obtenerData);
       }
@@ -24,6 +25,7 @@ async function mostrarUsuarios() {
       "Error al recuperar usuarios en la base de datos DE USUARIOS" + err
     );
   }
+  //console.log(users);
   return users;
 }
 
@@ -45,6 +47,7 @@ async function nuevoUsuario(datos) {
   var { hash, salt } = encriptarPassword(datos.password);
   datos.password = hash;
   datos.salt = salt;
+  datos.admin = false;
   var user = new Usuario(null, datos);
   var error = 1;
   if (user.bandera == 0) {
@@ -121,6 +124,7 @@ async function verificarPassword(password, hash, salt) {
     .toString("hex");
   return hashEvaluar === hash;
 }
+
 
 module.exports = {
   mostrarUsuarios,
