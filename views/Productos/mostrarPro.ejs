@@ -1,4 +1,6 @@
-<%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
+<%- include("../templates/index") %>
+<%- include("../templates/menuProdV2") %>
+
 <div class="container mt-5">
   <div class="card">
     <div class="card-header">
@@ -11,137 +13,56 @@
             <th>ID</th>
             <th>Foto</th>
             <th>Nombre</th>
-            <th>Descripcion</th>
+            <th>Descripción</th>
             <th>Precio</th>
             <th>Cantidad</th>
+            <th>Categoría</th>
+            <th>IVA</th>
+            <th>Descuento</th>
+            <th>En reserva</th>
             <th>Editar</th>
             <th>Borrar</th>
           </thead>
           <tbody class="table-group-divider">
-            <tr>
-              <% let totalPrecio = 0; %> <% let totalCantidad = 0; %> 
-              <% productos.forEach((productos) => { %>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= productos.id %>
-              </td>
-              <td
-                class="user-avatar text-center align-middle align-content-lg-center"
-                style="
-                  border: none;
-                  cursor: none;
-                  background-attachment: fixed;
-                  height: 4%;
-                  width: 2%;
-                  align-items: center;
-                "
-              >
-                <div class="avatar-container">
-                  <img
-                    src="/uploadsProducts/<%= productos.foto %>"
-                    alt="Foto de <%= productos.nombre %>"
-                    class="img-fluid rounded-circle"
-                  />
-                </div>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= productos.nombre %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= productos.descripcion %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                $<%= productos.precio %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                #<%= productos.cantidad %>
-              </td>
-              <td>
-                <a
-                  href="/productos/productos/editar/<%= productos.id %>"
-                  class="btn btn-warning"
-                  ><i class="bi bi-pen-fill"></i
-                ></a>
-              </td>
-              <td>
-                <a
-                  href="/productos/productos/borrar/<%= productos.id %>"
-                  class="btn btn-danger"
-                  ><i class="bi bi-trash3-fill"></i
-                ></a> 
-              </td>
-              <% totalPrecio += +productos.precio *+productos.cantidad; %> <!-- con el + se convierte en numero y con el * se multiplica y la suma se guarda en totalPrecio  -->
-              <% totalCantidad += +productos.cantidad; %>
-            </tr>
+            <% let totalPrecio = 0; %> 
+            <% let totalCantidad = 0; %> 
+            <% productos.forEach((producto) => { %>
+              <tr>
+                <td><%= producto.id %></td>
+                <td class="user-avatar text-center align-middle align-content-lg-center">
+                  <div class="avatar-container">
+                    <img src="/uploadsProducts/<%= producto.foto %>" alt="Foto de <%= producto.nombre %>" class="img-fluid rounded-circle" />
+                  </div>
+                </td>
+                <td><%= producto.nombre %></td>
+                <td><%= producto.descripcion %></td>
+                <td>$<%= producto.precio %></td>
+                <td>#<%= producto.cantidad %></td>
+                <td><%= producto.categoria %></td>
+                <td><%= producto.iva %></td>
+                <td><%= producto.descuento %></td>
+                <td><%= producto.reserva %></td>
+                <td>
+                  <a href="/productos/productos/editar/<%= producto.id %>" class="btn btn-warning">
+                    <i class="bi bi-pen-fill"></i>
+                  </a>
+                </td>
+                <td>
+                  <a href="/productos/productos/borrar/<%= producto.id %>" class="btn btn-danger">
+                    <i class="bi bi-trash3-fill"></i>
+                  </a>
+                </td>
+              </tr>
+              <% totalPrecio += +producto.precio * +producto.cantidad; %>
+              <% totalCantidad += +producto.cantidad; %>
             <% }); %>
           </tbody>
           <tfoot>
             <tr>
-              <td
-                class="text-uppercase"
-                colspan="4"
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                  font-weight: bold;
-                "
-              >Total :</td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: copy;
-                "
-              >
-                $<%= totalPrecio %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: copy;
-                "
-              >
-                #<%= totalCantidad %>
-              </td>
-              <td
-                colspan="2"
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              ></td>
+              <td colspan="4" class="text-uppercase font-weight-bold">Total :</td>
+              <td>$<%= totalPrecio %></td>
+              <td>#<%= totalCantidad %></td>
+              <td colspan="2"></td>
             </tr>
           </tfoot>
         </table>
@@ -149,4 +70,33 @@
     </div>
   </div>
 </div>
-<%- include("../templates/pie")%>
+
+<style>
+  .avatar-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+
+  .avatar-container img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-responsive table {
+    margin-bottom: 0;
+  }
+</style>
+<%- include("../templates/pie") %>

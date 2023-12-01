@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container">
+    <i class="bi bi-clipboard2-data">
+      <a class="navbar-brand" href="/" style="color: aliceblue; font-weight: 600;">Oryumon</a>
+    </i>
+
+    <div class="d-flex align-items-center justify-content-between ml-auto">
+      <% usuarios.forEach((usuario) => { %>
+        <div class="mr-2  m-lg-1 text-center">
+          <p class="mb-1">Hola <%= usuario.nombre %></p>
+          <img src="/uploads/<%= usuario.foto %>" alt="Foto de <%= usuario.nombre %>" class="img-fluid rounded-circle" style="max-height: 40px; width: auto; border: 2px solid #fff; border-radius: 50%; margin-top: 5px;">
+        </div>
+      <% }); %>
+      &nbsp;&nbsp;&nbsp;
+      <div id="clock" class="text-white mr-4"></div>
+      &nbsp;&nbsp;
+      <a href="/venta/salir" class="text-white" style="text-decoration: none; font-weight: bold;"><i class="bi-escape"></i> Salir</a>
+    </div>
+  </div>
+</nav>
+
+<br />
+<script>
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const seconds = now.getSeconds().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    // Convert to 12-hour format
+    hours = hours % 12 || 12;
+
+    const clockElement = document.getElementById("clock");
+    if (clockElement) {
+      clockElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+    }
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock(); // Initial call to display the clock immediately
+</script>

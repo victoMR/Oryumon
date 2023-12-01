@@ -1,4 +1,6 @@
-<%- include("../templates/index")%> <%- include("../templates/menu")%>
+<%- include("../templates/index")%>
+<%- include("../templates/menuUsrv2")%>
+<br><br>
 <div class="container mt-5">
   <div class="card">
     <div class="card-header">
@@ -6,116 +8,55 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-striped table-hover table-responsive-md">
+        <table class="table table-striped table-hover">
           <thead>
             <th>ID</th>
-            <th>Foto</th>
-            <th>Nombre</th>
-            <th>Usuario</th>
-            <th>Edad</th>
-            <th>Password</th>
-            <th>Editar</th>
-            <th>Borrar</th>
+            <th><i class="bi bi-file-image"></i></th>
+            <th><i class="bi bi-person"></i></th>
+            <th><i class="bi bi-person"></i> </th>
+            <th><i class="bi bi-envelope"></i></th>
+            <th><i class="bi bi-card-id"></i> CURP</th>
+            <th><i class="bi bi-card-text"></i> RFC</th>
+            <th><i class="bi bi-phone"></i></th>
+            <th><i class="bi bi-geo-alt"></i> Dirección</th>
+            <th><i class="bi bi-lock"></i> Contraseña</th>
+            <th><i class="bi bi-pencil"></i> Editar</th>
+            <th><i class="bi bi-trash"></i> Borrar</th>
           </thead>
           <tbody class="table-group-divider">
             <% usuarios.forEach((usuario, index) => { %>
-            <tr>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= usuario.id %>
-              </td>
-              <td
-                class="user-avatar img-fluid m-3"
-                style="
-                  border: none;
-                  cursor: none;
-                  background-attachment: fixed;
-                  height: 45px;
-                  width: 35px;
-                  align-items: center;
-                "
-              >
-                <div class="avatar-container">
-                  <img
-                    src="/uploads/<%= usuario.foto %>"
-                    alt="Foto de <%= usuario.nombre %>"
-                    class="img-fluid rounded-circle"
-                  />
-                </div>
-              </td>
-
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= usuario.nombre %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= usuario.usuario %>
-              </td>
-              <td
-                style="
-                  border: none;
-                  background-color: transparent;
-                  cursor: none;
-                "
-              >
-                <%= usuario.edad %>
-              </td>
-              <td>
-                <input
-                  type="password"
-                  id="password<%= index %>"
-                  name="password"
-                  readonly
-                  disabled
-                  style="
-                    border: none;
-                    background-color: transparent;
-                    cursor: none;
-                  "
-                  value="<%= usuario.password.slice(0, 12) %>..."
-                />
-                <span class="input-group-btn">
-                  <button
-                    id="show_password<%= index %>"
-                    class="btn btn-secondary"
-                    type="button"
-                    style="padding: 6px"
-                  >
-                    <span><i class="bi bi-eye-fill"></i></span>
-                  </button>
-                </span>
-              </td>
-              <td>
-                <a
-                  href="/usuarios/usuarios/editar/<%= usuario.id %>"
-                  class="btn btn-warning"
-                  ><i class="bi bi-pen-fill"></i
-                ></a>
-              </td>
-              <td>
-                <a
-                  href="/usuarios/usuarios/borrar/<%= usuario.id %>"
-                  class="btn btn-danger"
-                  ><i class="bi bi-trash3-fill"></i
-                ></a>
-              </td>
-            </tr>
+              <tr>
+                <td><%= usuario.id %></td>
+                <td class="user-avatar img-fluid m-3">
+                  <div class="avatar-container">
+                    <img src="/uploads/<%= usuario.foto %>" alt="Foto de <%= usuario.nombre %>" class="img-fluid rounded-circle" />
+                  </div>
+                </td>
+                <td><%= usuario.nombre %></td>
+                <td><%= usuario.usuario %></td>
+                <td><%= usuario.email %></td>
+                <td><%= usuario.curp %></td>
+                <td><%= usuario.rfc %></td>
+                <td><%= usuario.telefono %></td>
+                <td><%= usuario.direccionEmpresa %></td>
+                <td>
+                  <div class="password-container">
+                    <input
+                      type="password"
+                      id="password_<%= index %>"
+                      name="password"
+                      readonly
+                      disabled
+                      value="<%= usuario.password.slice(0, 2) %>..."
+                    />
+                    <button class="btn btn-secondary show-password" data-index="<%= index %>" type="button">
+                      <i class="bi bi-eye-fill"></i>
+                    </button>
+                  </div>
+                </td>
+                <td><a href="/usuarios/usuarios/editar/<%= usuario.id %>" class="btn btn-warning"><i class="bi bi-pen-fill"></i></a></td>
+                <td><a href="/usuarios/usuarios/borrar/<%= usuario.id %>" class="btn btn-danger"><i class="bi bi-trash3-fill"></i></a></td>
+              </tr>
             <% }); %>
           </tbody>
         </table>
@@ -124,15 +65,76 @@
   </div>
 </div>
 
-<% usuarios.forEach((usuario, index) => { %>
-<script>
-  $("#show_password<%= index %>").hover(
-    function () {
-      $("#password<%= index %>").attr("type", "text");
-    },
-    function () {
-      $("#password<%= index %>").attr("type", "password");
+<%- include("../templates/pie")%>
+
+<style>
+  .user-avatar img {
+    max-width: 45px;
+    max-height: 45px;
+
+  }
+
+  .password-container {
+    position: relative;
+    width: 100px;
+
+  }
+
+  .password-container input,
+  .password-container button {
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: #000;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .password-container button {
+    position: absolute;
+    right: 5px;
+  }
+  table.table.table-striped.table-hover {
+    margin-top: 1px;
+  }
+  table{
+    table-layout: fixed;
+  }
+  td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media screen and (max-width: 767px)
+   {
+    table{
+      table-layout: auto;
     }
-  );
+    
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const showPasswordButtons = document.querySelectorAll(".show-password");
+
+    showPasswordButtons.forEach(button => {
+      button.addEventListener("mouseenter", function () {
+        const index = this.getAttribute("data-index");
+        document.getElementById(`password_${index}`).type = "text";
+      });
+
+      button.addEventListener("mouseleave", function () {
+        const index = this.getAttribute("data-index");
+        document.getElementById(`password_${index}`).type = "password";
+      });
+    });
+  });
 </script>
-<% }); %> <%- include("../templates/pie")%>

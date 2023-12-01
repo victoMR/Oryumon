@@ -60,6 +60,29 @@
           <span class="input-group-text">#</span>
           <input type="number" class="form-control" aria-label="Cantidad" name="cantidad" id="cantidad" value="<%= producto.cantidad %>" min="1" max="999">
         </div>
+        <p>Categoria</p>
+        <select class="form-select mb-3" aria-label="Default select example" name="categoria" id="categoria" required>
+          <option selected>Selecciona una categoria</option>
+          <option value="1">Categoria 1</option>
+          <option value="2">Categoria 2</option>
+          <option value="3">Categoria 3</option>
+        </select>
+        <p>IVA</p>
+        <div class="input-group mb-3">
+          <span class="input-group-text">%</span>
+          <input type="number" class="form-control" aria-label="IVA" name="iva" id="iva" value="<%= producto.iva %>" min="1" max="99">
+        </div>
+        <p>Descuento</p>
+        <div class="input-group mb-3">
+          <span class="input-group-text">%</span>
+          <input type="number" class="form-control" aria-label="Descuento" name="descuento" id="descuento" value="<%= producto.descuento %>" min="1" max="99">
+        </div>
+        <p>En reserva</p>
+        <div class="input-group mb-3">
+          <span class="input-group-text">#</span>
+          <input type="number" class="form-control" aria-label="En reserva" name="reserva" id="enReserva" value="<%= producto.enReserva %>" min="1" max="99">
+        </div>
+      </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
           <i class="bi bi-check-circle"></i> Modificar producto

@@ -1,11 +1,13 @@
-<%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
+<%- include("../templates/index")%> <%- include("../templates/menuProdV2")%>
 <div class="container mt-5">
   <form action="/productos/productos/nuevoproducto" method="post" enctype="multipart/form-data">
     <div class="card">
-      <div class="card-header">
-        <h3>Nuevo Producto</h3>
+      <div  class="card-header">
+        <i class="bi bi-plus-circle-fill" id="ic"></i>
+        <h3 >Nuevo Producto</h3>
       </div>
       <div class="card-body">
+        <label class="nombres" for="nombre">Nombre del producto</label>
         <input
           class="form-control mb-3"
           type="text"
@@ -16,12 +18,14 @@
           autocomplete="name"
           required
         />
+        <label class="nombres" for="foto">Fotografia del producto</label>
         <input 
         class="form-control mb-3" 
         type="file" 
         name="foto" 
         id="foto" 
         />
+        <label class="nombres" for="descripcion">Descripcion</label>
         <input
           class="form-control mb-3"
           type="text"
@@ -30,15 +34,40 @@
           placeholder="Descripcion"
           required
         />
+        <label class="nombres" for="precio">Precio</label>
         <div class="input-group mb-3">
           <span class="input-group-text">$</span>
           <input type="text" class="form-control" aria-label="Precio" name="precio" id="precio" placeholder="1" required>
           <span class="input-group-text">.00</span>
         </div>
+        <label class="nombres" for="cantidad">Cantidad</label>
         <div class="input-group mb-3">
           <span class="input-group-text">#</span>
           <input type="text" class="form-control" aria-label="Cantidad" name="cantidad" id="cantidad" required>
         </div>
+        <label class="nombres" for="categoria">Categoria</label>
+        <select class="form-select mb-3" aria-label="Default select example" name="categoria" id="categoria" required>
+          <option selected>Selecciona una categoria</option>
+          <option value="1">Abarrotes</option>
+          <option value="2">Comida</option>
+          <option value="3">Ferreteria</option>
+        </select>
+        <label class="nombres" for="iva">IVA</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text">%</span>
+          <input type="text" class="form-control" aria-label="IVA" name="iva" id="iva" required>
+        </div>
+        <label class="nombres" for="descuento">Descuento: </label>
+        <div class="input-group mb-3">
+          <span class="input-group-text">%</span>
+          <input type="text" class="form-control" aria-label="Descuento" name="descuento" id="descuento" required>
+        </div>
+        <label class="nombres" for="">Productos de reservaReserva</label>
+        <div class="input-group mb-3">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" aria-label="En reserva" name="reserva" id="enReserva" required>
+        </div>
+      </div>
       <div class="card-footer">
         <button class="form control btn btn-success" type="submit">
           <i class="bi bi-check-circle"></i> Guardar
@@ -48,4 +77,30 @@
     </div>
   </form>
 </div>
+
+
+<style>
+.card-header {
+  background-color: #0d6efd;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+#ic{
+  padding-right: 20px;
+}
+
+.card{
+  margin: 4px solid #141313;
+  background-color: rgba(76, 134, 221, 0.475);
+  box-shadow: 0 0 20px rgba(186, 12, 12, 0.1); /* Agrega sombra para la elevación */
+  border-radius: 18px; /* Ajusta el radio de borde según tus preferencias */
+  margin: 20px; /* Ajusta el margen según tus preferencias */
+  padding: 20px; /* Ajusta el relleno según tus preferencias */
+}
+ 
+
+
+</style>
 <%- include("../templates/pie")%>

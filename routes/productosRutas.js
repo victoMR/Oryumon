@@ -7,9 +7,11 @@ var {
   borrarProducto,
 } = require("../database/productosBD");
 
-const { encriptarPassword,
+const {
+  encriptarPassword,
   autorizado,
-  admin } = require("../middlewares/funcionesPassword");
+  admin,
+} = require("../middlewares/funcionesPassword");
 
 //middleware para subir archivos
 var subirArchivo = require("../middlewares/subirArchivoProduct");
@@ -17,13 +19,17 @@ const fs = require("fs").promises;
 //middleware para borrar archivos
 
 // PRODUCTOS
-rutaProduct.get("/productos", async (req, res) => {
-  //index mas esto  = /productos/productos
-  var productos = await mostrarProductos();
-  res.render("productos/mostrarPro", { productos });
+rutaProduct.get("/productos", autorizado, async (req, res) => {
+  try {
+    const productos = await mostrarProductos();
+    res.render("productos/productos", { productos });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 // NUEVO PRO
-rutaProduct.get("/productos/nuevoproducto",admin, async (req, res) => {
+rutaProduct.get("/productos/nuevoproducto", autorizado, async (req, res) => {
   res.render("productos/nuevoPro");
 });
 rutaProduct.post(
@@ -32,13 +38,20 @@ rutaProduct.post(
   async (req, res) => {
     req.body.foto = req.file.originalname;
     var error = await nuevoProducto(req.body);
-    res.redirect("/productos/productos");
+    res.redirect("/principalTienda");
   }
 );
 // EDITAR
-rutaProduct.get("/productos/editar/:id", async (req, res) => {
-  var producto = await buscarPorIDPro(req.params.id);
-  res.render("productos/modificarPro", { producto });
+rutaProduct.get("/productos/editar/:id", autorizado, async (req, res) => {
+  try {
+    const producto = await buscarPorIDPro(req.params.id);
+    res.render("productos/modificarPro", { producto, error: null });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+
+  // productos/modificarPro
 });
 rutaProduct.post("/productos/editar", subirArchivo(), async (req, res) => {
   var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
@@ -50,12 +63,26 @@ rutaProduct.post("/productos/editar", subirArchivo(), async (req, res) => {
   console.log("*********************");
   console.log(req.body.foto);
   var error = await modificarProducto(req.body);
-  res.redirect("/productos/productos");
+  res.redirect("/principalTienda");
 });
-// ELIMINAR
-rutaProduct.get("/productos/borrar/:id", async (req, res) => {
+
+rutaProduct.get("/usuarios/usuarios/vendido/:id", async (req, res) => {
   var producto = await buscarPorIDPro(req.params.id); // pordia ser await borrarUsuario(req.params.id);
-  res.render("productos/eliminarPro", { producto }); // res.redirect("/");
+  res.render("venta/vendidosTra"); // res.redirect("/");
+});
+// hacer la relacion entre las tablas para mandar info
+
+// ELIMINAR
+rutaProduct.get("/productos/borrar/:id", autorizado, async (req, res) => {
+  try {
+    const producto = await buscarPorIDPro(req.params.id);
+    res.render("productos/eliminarPro", { producto });
+  }
+  catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+  
 });
 
 rutaProduct.post("/productos/borrar", async (req, res) => {
@@ -79,7 +106,7 @@ rutaProduct.post("/productos/borrar", async (req, res) => {
     await borrarProducto(productId);
     error = 0;
 
-    res.redirect("/productos/productos");
+    res.redirect("/principalTienda");
   } catch (error) {
     console.error("Error al borrar el producto o usuario:", error);
     res.status(500).send("Error al borrar el producto o usuario");

@@ -1,75 +1,152 @@
-<%- include("../templates/index")%> <%- include("../templates/menuLogin")%>
+<%- include("../templates/index")%>
+<%- include("../templates/menuLoginUsr")%>
+
+
+
+<br>
 <div class="container mt-5">
   <form action="/usuarios/usuarios/nuevousuario" method="post" enctype="multipart/form-data">
-    <!-- enctype para enviar archivos binarios -->
-    <div class="card">
-      <div class="card-header">
-        <h3>Nuevo Usuario</h3>
+    <div class="card shadow">
+      <div id="foco" style="background-color: #dc3545;" class="card-header bg-primary text-white">
+        <h3 >Nueva Empresa</h3>
       </div>
       <div class="card-body">
-        <div class="p-0 m-2">Nombre</div>
-        <input
-          class="form-control mb-3"
-          type="text"
-          name="nombre"
-          id="nombre"
-          placeholder="Nombre"
-          autofocus
-          autocomplete="name"
-        />
-        <div class="p-0 m-2">Foto</div>
-        <input class="form-control mb-3" type="file" name="foto" id="foto" />
-        <div class="p-0 m-2">Usuario</div>
-        <input
-          class="form-control mb-3"
-          type="text"
-          name="usuario"
-          id="usuario"
-          placeholder="Usuario"
-        />
-        <div class="p-0 m-2">Contraseña</div>
-        <input
-          class="form-control mb-3"
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          autocomplete="current-password"
-        />
-        <div class="password-validation mt-2">
-          <ul>
-            <li id="length">Mínimo 8 caracteres</li>
-            <li id="special">Al menos 1 carácter especial</li>
-            <li id="number">Al menos 2 números</li>
-            <li id="unique">Sin caracteres repetidos</li>
-          </ul>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="nombre"
+            id="nombre"
+            placeholder="Nombre"
+            autofocus
+            autocomplete="name"
+          />
         </div>
-        <div class="p-0 m-2">Edad</div>
-        <input
-          class="form-control mb-3"
-          type="number"
-          name="edad"
-          id="edad"
-          placeholder="Edad"
-          min="13"
-          max="99"
-        />
+        <div class="mb-3">
+          <label for="foto" class="form-label">Foto de Perfil:</label>
+          <input class="form-control" type="file" name="foto" id="foto" />
+        </div>
+        <div class="mb-3">
+          <label for="usuario" class="form-label">Usuario:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="usuario"
+            id="usuario"
+            placeholder="Usuario"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+          />
+          <div class="password-validation mt-2">
+            <ul>
+              <li id="length">Mínimo 8 caracteres</li>
+              <li id="special">Al menos 1 carácter especial</li>
+              <li id="number">Al menos 2 números</li>
+              <li id="unique">Sin caracteres repetidos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico:</label>
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Correo Electrónico"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono:</label>
+          <input
+            class="form-control"
+            type="tel"
+            name="telefono"
+            id="telefono"
+            placeholder="Teléfono"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="curp" class="form-label">CURP:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="curp"
+            id="curp"
+            placeholder="CURP"
+            minlength="18"
+            maxlength="18"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="direccionEmpresa" class="form-label">Dirección de la Empresa:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="direccionEmpresa"
+            id="direccionEmpresa"
+            placeholder="Dirección de la Empresa"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="nombreEmpresa" class="form-label">Nombre de la Empresa:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="nombreEmpresa"
+            id="nombreEmpresa"
+            placeholder="Nombre de la Empresa"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="rfc" class="form-label">RFC:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="rfc"
+            id="rfc"
+            placeholder="RFC"
+            minlength="13"
+            maxlength="13"
+          />
+        </div>
       </div>
       <div class="card-footer">
-        <button class="form control btn btn-success" type="submit">
+        <button class="btn btn-success" type="submit">
           <i class="bi bi-check-circle"></i> Guardar
         </button>
-        <a href="/" class="btn btn-secondary"
-          ><i class="bi bi-arrow-bar-left"></i> Cancelar</a
-        >
+        <a href="/" class="btn btn-secondary">
+          <i class="bi bi-arrow-bar-left"></i> Cancelar
+        </a>
       </div>
     </div>
   </form>
 </div>
+
 <style>
+  /* Estilos generales */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(139, 170, 201);
+  }
+
+  .container {
+    max-width: 60%;
+  }
+
   /* Estilos para los mensajes de validación */
   .password-validation {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 
   .password-validation ul {
@@ -78,62 +155,56 @@
   }
 
   .password-validation li::before {
-    content: "\2022"; /* Círculo de viñeta */
-    color: #dc3545; /* Color rojo de Bootstrap */
+    content: "\2022";
+    color: #dc3545;
     display: inline-block;
     width: 1em;
     margin-left: -1em;
   }
 
-  /* Estilos para los mensajes de validación que cumplen los requisitos */
   .password-validation li.valid {
-    color: #28a745; /* Color verde de Bootstrap */
+    color: #28a745;
   }
 
-  /* Fuente de Google Fonts */
-  body {
-    font-family: 'Roboto', sans-serif;
+  /* Estilos para el formulario */
+  .card {
+
+    border: 10px;
+    border-radius: 40px 40px 40px 40px;
+    box-shadow: 0 0 15px rgba(141, 120, 203, 0.93);
+  }
+
+  .card-header {
+    border-radius: 30px 30px 0 0;
+  }
+
+  .btn {
+    border-radius: 5px;
+  }
+
+  .card-footer{
+    text-align: center;
+      
+      
+  }
+  .btn btn-success, btn btn-secondary{
+    display: inline-block;
+      margin-top: 20px;
+      margin: 0 20px; 
+  }
+
+  
+  #foco{
+    background-color: blueviolet;
+    text-align: center;
   }
 </style>
-<link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-  rel="stylesheet"
-/>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbs5uR/AKE4ZI/JA/4FvETKZAQHfdd8Lr+Tm4JsXrFlgZpAEVegpDLA7F7Qv5bX" crossorigin="anonymous">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function () {
-    // Función para actualizar los mensajes de validación de contraseña
-    function updatePasswordValidation() {
-      const password = $("#password").val();
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-F4gtjgjc23pApPQxI1y5VhFf8qfDpzPRREMAIwCXL5k9brwqGCDtDE12c6O1vKT" crossorigin="anonymous"></script>
 
-      const lengthMessage = $("#length");
-      const specialMessage = $("#special");
-      const numberMessage = $("#number");
-      const uniqueMessage = $("#unique");
 
-      // Validaciones
-      const minLength = 8;
-      const minSpecialChars = 1;
-      const minNumbers = 2;
-      const hasRepeatedChars = /(.)\1/.test(password);
-
-      lengthMessage.toggleClass("valid", password.length >= minLength);
-      specialMessage.toggleClass(
-        "valid",
-        (password.match(/[^A-Za-z0-9]/g) || []).length >= minSpecialChars
-      );
-      numberMessage.toggleClass(
-        "valid",
-        (password.match(/\d/g) || []).length >= minNumbers
-      );
-      uniqueMessage.toggleClass("valid", !hasRepeatedChars);
-    }
-
-    // Actualizar mensajes de validación en tiempo real
-    $("#password").on("input", updatePasswordValidation);
-
-    // Inicializar mensajes de validación
-    updatePasswordValidation();
-  });
-</script>
 <%- include("../templates/pie")%>

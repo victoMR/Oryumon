@@ -10,13 +10,14 @@ async function mostrarProductos() {
       productosObtenidos.forEach((producto) => {
         var productoInstancia = new Producto(producto.id, producto.data());
         if (productoInstancia.bandera == 0) {
-          productos.push(productoInstancia.obtenerData);
+          productos.push(productoInstancia.ObtenerDatos);
         }
       });
     }
   } catch (err) {
     console.log("Error al recuperar productos en la base de datos" + err);
   }
+  console.log(productos);
   return productos;
 }
 
@@ -25,7 +26,7 @@ async function nuevoProducto(datos) {
   var error = 1;
   if (producto && producto.bandera == 0) {
     try {
-      await conexion.doc().set(producto.obtenerData);
+      await conexion.doc().set(producto.ObtenerDatos);
       console.log("Producto insertado a la BD");
       error = 0;
     } catch (err) {
@@ -45,7 +46,27 @@ async function buscarPorIDPro(id) {
       producto = new Producto(productoDoc.id, productoDoc.data());  //si lo encuentra 
       
       if (producto.bandera == 0) { //si el producto existe y no esta vacio lo retorna
-        producto = producto.obtenerData; //retorna el producto
+        producto = producto.ObtenerDatos; //retorna el producto
+      }
+    }
+  } catch (err) {
+    console.log("Error al recuperar al producto" + err); //si no lo encuentra
+  }
+  
+  return producto; // retonrna si no encuentra nada
+}
+
+async function buscarPorNombrePro(nombre) {
+  var producto = null; //inicio la variable producto
+  
+  try {
+    var productoDoc = await conexion.where("nombre", "==", nombre).get(); //busca el producto por nombre
+    
+    if (productoDoc.exists) {
+      producto = new Producto(productoDoc.id, productoDoc.data());  //si lo encuentra 
+      
+      if (producto.bandera == 0) { //si el producto existe y no esta vacio lo retorna
+        producto = producto.ObtenerDatos; //retorna el producto
       }
     }
   } catch (err) {
@@ -60,7 +81,7 @@ async function nuevoProducto(datos) {
   var error = 1;
   if (producto.bandera == 0) {
     try {
-      await conexion.doc().set(producto.obtenerData);
+      await conexion.doc().set(producto.ObtenerDatos);
       console.log("Producto insertado a la BD");
       error = 0;
     } catch (err) {
@@ -77,7 +98,7 @@ async function modificarProducto(datos) {
     var error = 1;
     if (producto.bandera == 0) {
       try {
-        await conexion.doc(producto.id).update(producto.obtenerData);
+        await conexion.doc(producto.id).update(producto.ObtenerDatos);
         console.log("Producto actualizado en la BD");
         error = 0;
       } catch (err) {
@@ -111,6 +132,7 @@ async function borrarProducto(id) {
 module.exports = {
   mostrarProductos,
   buscarPorIDPro,
+  buscarPorNombrePro,
   nuevoProducto,
   modificarProducto,
   borrarProducto,

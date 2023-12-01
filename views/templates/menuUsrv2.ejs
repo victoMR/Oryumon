@@ -1,0 +1,152 @@
+<head>
+  <%- include('../templates/index') %>
+
+  <style>
+    .dropdown-content {
+      display: none;
+    }
+
+    .nav-item:hover .dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav
+    class="navbar navbar-dark bg-primary fixed-top navbar-expand-lg"
+    id="menu2"
+  >
+    <div class="container-fluid">
+      <!-- <a class="navbar-brand" href="/">
+      <i class="bi bi-fire"></i> Inicio
+    </a> -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasDarkNavbar"
+        aria-controls="offcanvasDarkNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="offcanvas offcanvas-end text-bg-dark"
+        tabindex="-1"
+        id="offcanvasDarkNavbar"
+        aria-labelledby="offcanvasDarkNavbarLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">
+                <i class="bi bi-house-fill"></i> Inicio
+              </a>
+            </li>
+
+            <li class="nav-item" id="perfilDropdown">
+              <a class="nav-link" href="#">
+                <i class="bi bi-person-lines-fill"></i> Perfil
+              </a>
+              <div class="dropdown-content">
+                <a
+                  class="nav-link"
+                  href="/usuarios/usuarios/editarEmpresa/<%= userId %>"
+                  ><i class="bi bi-pencil-fill"></i> Editar</a
+                >
+                <a
+                  class="nav-link"
+                  href="/usuarios/eliminarEmpresa/<%= userId %>"
+                  ><i class="bi bi-trash-fill"></i> Eliminar</a
+                >
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/productos/productos">
+                <i class="bi bi-file-plus-fill"></i> Productos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">
+                <i class="bi bi-person-down"></i> Cerrar Sesión
+              </a>
+            </li>
+            <div class="dsa">
+              <% usuarios.forEach((usuario) => { %>
+                <% console.log("Usuario ID:", usuario.id, "User ID:", userId); %>
+                <% if (usuario.id.toString() === userId) { %>
+                  <% console.log("dd"+usuario.foto); %>
+                  <img src="/uploads/<%= usuario.foto %>" class="rounded-circle" width="50" height="50" alt="Imagen de <%= usuario.nombre %>">
+                  <p class="text-center"><%= usuario.nombre %></p>
+                  <% console.log("dsad"+usuario.foto); %>
+                <% } %>
+              <% }); %>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <style>
+    body {
+      padding-top: 56px; /* Ajustar según la altura del navbar */
+    }
+
+    .navbar-brand i {
+      font-size: 1.5rem; /* Tamaño del icono en la marca */
+    }
+
+    .navbar-toggler-icon {
+      color: white; /* Color del icono del botón de navegación */
+    }
+
+    .offcanvas-body {
+      padding: 10px;
+    }
+
+    .navbar-nav .nav-link i {
+      margin-right: 5px; /* Espaciado entre el icono y el texto del enlace */
+    }
+
+    @media (max-width: 991px) {
+      body {
+        padding-top: 0; /* Eliminar el espacio superior en pantallas pequeñas */
+      }
+
+      #perfilDropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        transition: display 0.3s; /* Añadido para la animación */
+      }
+
+      #perfilDropdown:hover .dropdown-content {
+        display: block;
+        top: 100%; /* Ajusta según sea necesario para la posición deseada */
+      }
+
+      #menu2 {
+        background-color: #7397e3 !important;
+      }
+    }
+  </style>
+</body>

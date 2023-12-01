@@ -1,98 +1,140 @@
-class Usuario {
-    constructor(id, data) { // Constructor de la clase con password para modificar usuario sin cambiar la contraseña
-        this.bandera = 0; // Propiedades de la clase
-        this._id = id;  // Propiedades de la clase
-        this._nombre = data.nombre;  // Propiedades de la clase
-        this._usuario = data.usuario;  // Propiedades de la clase
-        this._password = data.password;  // Propiedades de la clase
-        this._salt = data.salt;  // Propiedades de la clase
-        this._edad = data.edad;  // Propiedades de la 
-        this._foto = data.foto;  // Propiedades de la clase
-        this._admin = data.admin  // Propiedades de la clase
+class Usuarios {
+  constructor(id, data) {
+    this.bandera = 0;
+    this._id = id; // Propiedades de la clase
+    this._nombre = data.nombre; // Propiedades de la clase
+    this._usuario = data.usuario; // Propiedades de la clase
+    this._password = data.password; // Propiedades de la clase
+    this._salt = data.salt; // Propiedades de la clase
+    this._email = data.email; // Propiedades de la clase
+    this._telefono = data.telefono; // Propiedades de la clase
+    this._foto = data.foto; // Propiedades de la clase
+    this._admin = data.admin; // Propiedades de la clase
+    this._curp = data.curp; // Propiedades de la clase
+    this._direccionEmpresa = data.direccionEmpresa; // Propiedades de la clase
+    this._nombreEmpresa = data.nombreEmpresa; // Propiedades de la clase
+    this._rfc = data.rfc; // Propiedades de la clase
+  }
+  get id() {
+    return this._id;
+  }
+  get nombre() {
+    return this._nombre;
+  }
+  get usuario() {
+    return this._usuario;
+  }
+  get password() {
+    return this._password;
+  }
+  get salt() {
+    return this._salt;
+  }
+  get email() {
+    return this._email;
+  }
+  get telefono() {
+    return this._telefono;
+  }
+  get foto() {
+    return this._foto;
+  }
+  get admin() {
+    return this._admin;
+  }
+  get curp() {
+    return this._curp;
+  }
+  get direccionEmpresa() {
+    return this._direccionEmpresa;
+  }
+  get nombreEmpresa() {
+    return this._nombreEmpresa;
+  }
+  get rfc() {
+    return this._rfc;
+  }
+  set id(id) {
+    if (id != null && id == "") {
+      this.bandera = 1;
+    } else {
+      this._id = id;
     }
-    // Metodos de la clase
-    set id(value) {
-        if (value != null) {
-            value.length > 0 ? this._id = value : this.bandera = 1;
-        }
+  }
+  set nombre(nombre) {
+    nombre.trim().length > 0 ? (this._nombre = nombre) : (this.bandera = 1);
+  }
+  set usuario(usuario) {
+    usuario.length > 0 ? (this._usuario = usuario) : (this.bandera = 1);
+  }
+  set password(password) {
+    password.length > 0 ? (this._password = password) : (this.bandera = 1);
+  }
+  set salt(salt) {
+    salt.length > 0 ? (this._salt = salt) : (this.bandera = 1);
+  }
+  set email(email) {
+    email.length > 0 ? (this._email = email) : (this.bandera = 1);
+  }
+  set telefono(telefono) {
+    telefono.length > 0 ? (this._telefono = telefono) : (this.bandera = 1);
+  }
+  set foto(foto) {
+    foto.length > 0 ? (this._foto = foto) : (this.bandera = 1);
+  }
+  set admin(admin) {
+    admin.length > 0 ? (this._admin = admin) : (this.bandera = 1);
+  }
+  set curp(curp) {
+    curp.length > 0 ? (this._curp = curp) : (this.bandera = 1);
+  }
+  set direccionEmpresa(direccionEmpresa) {
+    direccionEmpresa.length > 0
+      ? (this._direccionEmpresa = direccionEmpresa)
+      : (this.bandera = 1);
+  }
+  set nombreEmpresa(nombreEmpresa) {
+    nombreEmpresa.length > 0
+      ? (this._nombreEmpresa = nombreEmpresa)
+      : (this.bandera = 1);
+  }
+  set rfc(rfc) {
+    rfc.length > 0 ? (this._rfc = rfc) : (this.bandera = 1);
+  }
+  get ObtenerDatos() {
+    if (this._id != null) {
+      return {
+        id: this._id,
+        nombre: this._nombre,
+        usuario: this._usuario,
+        password: this._password,
+        salt: this._salt,
+        email: this._email,
+        telefono: this._telefono,
+        foto: this._foto,
+        admin: this._admin,
+        curp: this._curp,
+        direccionEmpresa: this._direccionEmpresa,
+        nombreEmpresa: this._nombreEmpresa,
+        rfc: this._rfc,
+      };
+    } else {
+      return {
+        nombre: this.nombre,
+        usuario: this.usuario,
+        password: this.password,
+        salt: this.salt,
+        email: this.email,
+        telefono: this.telefono,
+        foto: this.foto,
+        admin: this.admin,
+        curp: this.curp,
+        direccionEmpresa: this.direccionEmpresa,
+        nombreEmpresa: this.nombreEmpresa,
+        rfc: this.rfc,
+      };
     }
-    set nombre(value) {
-        value.length > 0 ? this._nombre = value : this.bandera = 1;
-    }
-    
-    set usuario(value) {
-        value.length > 0 ? this._usuario = value : this.bandera = 1;
-    }
-
-    
-    set password(value) {
-        value.length > 0 ? this._password = value : this.bandera = 1;
-    }
-    
-    set salt(value) {
-        value.length > 0 ? this._salt = value : this.bandera = 1;
-    }
-    
-    set edad(value) {
-        value > 0 ? this._edad = edad : this.bandera = 1;
-    }
-    
-    set foto(value) {
-        value.length > 0 ? this._foto = foto : this.bandera = 1;
-    }
-    set admin(value) {
-        this._admin = admin;
-    }
-    get id() {
-    return this._id; // Se retorna el valor de la propiedad _id
-    }
-    get nombre() {
-    return this._nombre;  // Se retorna el valor de la propiedad _nombre
-    }
-    get usuario() {
-    return this._usuario;  // Se retorna el valor de la propiedad _usuario
-    }
-    get password() {
-    return this._password;  // Se retorna el valor de la propiedad _password
-    }
-    get salt() {
-    return this._salt;  // Se retorna el valor de la propiedad _salt
-    }
-    get edad() {
-    return this._edad;  // Se retorna el valor de la propiedad _edad
-    }
-    get foto() {
-    return this._foto;  // Se retorna el valor de la propiedad _foto
-    }
-    get admin() {
-    return this._admin;  // Se retorna el valor de la propiedad _rol
-    }
-    get obtenerData(){
-        if(this._id !=null)
-        return {
-            id: this.id,  // Se retorna el valor de la propiedad id de el get id
-            nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
-            usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
-            password: this.password,  // Se retorna el valor de la propiedad password de el get password
-            salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
-            edad: this.edad, // Se retorna el valor de la propiedad edad de el get edad
-            foto: this.foto,  // Se retorna el valor de la propiedad foto de el get foto
-            admin: this.admin
-        }
-        else{
-            return {
-                nombre: this.nombre,  // Se retorna el valor de la propiedad nombre de el get nombre
-                usuario: this.usuario, // Se retorna el valor de la propiedad usuario de el get usuario
-                password: this.password,  // Se retorna el valor de la propiedad password de el get password
-                salt: this.salt,  // Se retorna el valor de la propiedad salt de el get salt
-                edad: this.edad,  // Se retorna el valor de la propiedad edad de el get edad
-                foto: this.foto,
-                admin: this.admin
-            }
-        }
-        
-    }
-    
+  }
 }
 
-module.exports = Usuario; // Se exporta la clase Usuario
+module.exports = Usuarios;

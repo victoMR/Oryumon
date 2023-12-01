@@ -1,0 +1,257 @@
+<%- include("../templates/index")%> <%- include("../templates/menuUsrV2")%>
+
+<br /><br /><br />
+<div class="container">
+  <div class="botones">
+    <a href="/principalTienda?boton=productos" id="botones" class="button-52"
+      ><i class="bi bi-basket"></i> Productos</a
+    >
+    <a href="/principalTienda?boton=trabajadores" id="botones" class="button-52"
+      ><i class="bi bi-people"></i> Trabajadores</a
+    >
+  </div>
+  <br />
+  <div class="card-outer">
+    <div class="card">
+      <div class="tablaPro">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <% if (boton === 'productos') { %>
+              <th><i class="bi bi-hash"></i></th>
+              <th><i class="bi bi-card-text"></i></th>
+              <th><i class="bi bi-file-image"></i></th>
+              <th><i class="bi bi-info-circle"></i></th>
+              <th><i class="bi bi-cash"></i></th>
+              <th><i class="bi bi-basket"></i></th>
+              <th><i class="bi bi-tags"></i></th>
+              <th><i class="bi bi-percent"></i></th>
+              <th><i class="bi bi-tag"></i></th>
+              <th><i class="bi bi-box-seam"></i></th>
+              <th><i class="bi bi-pencil-square"></i></th>
+              <th><i class="bi bi-trash3-fill"></i></th>
+              <% } else if (boton === 'trabajadores') { %>
+              <th><i class="bi bi-hash"></i></th>
+              <th><i class="bi bi-file-image"></i></th>
+              <th><i class="bi bi-person"></i></th>
+              <th><i class="bi bi-envelope"></i></th>
+              <th><i class="bi bi-card-id"></i> CURP</th>
+              <th><i class="bi bi-card-text"></i> RFC</th>
+              <th><i class="bi bi-phone"></i></th>
+              
+              <th><i class="bi bi-pencil-square"></i></th>
+              <th><i class="bi bi-trash3-fill"></i></th>
+              <!-- aqui boton de vendido -->
+              <th><i class="bi bi-cash-coin" ></i></th>
+              <% } %>
+            </tr>
+          </thead>
+          <div class="card-header">
+            <!-- hacer comparacion entrre los botones , si el boton de trabajadores esta poner titulo trabajadores y si no el otro -->
+            <% if (boton === 'productos') { %>
+            <h3>Productos</h3>
+            <% } else if (boton === 'trabajadores') { %>
+            <h3>Trabajadores</h3>
+            
+            <% } %>
+          </div>
+          <tbody class="tapro">
+            <% if (boton === 'productos') { %> <% productos.forEach(producto =>
+            { %>
+            <tr>
+              <td><%= producto.id %></td>
+              <td><%= producto.nombre %></td>
+              <td>
+                <div class="avatar-container">
+                  <img
+                    src="/uploadsProducts/<%= producto.foto %>"
+                    alt="Foto de <%= producto.nombre %>"
+                    class="img-fluid rounded-circle img-producto"
+                  />
+                </div>
+              </td>
+              <td><%= producto.descripcion %></td>
+              <td>$<%= producto.precio %></td>
+              <td>#<%= producto.cantidad %></td>
+              <td><%= producto.categoria %></td>
+              <td><%= producto.iva %></td>
+              <td><%= producto.descuento %></td>
+              <td><%= producto.reserva %></td>
+              
+
+<td>
+              <a href="/productos/productos/editar/<%= producto.id %>" class="btn btn-warning">
+                <i class="bi bi-pen-fill"></i>
+              </a>
+              
+            </td>
+            <td> 
+              <a
+                href="/productos/productos/borrar/<%= producto.id %>"
+                class="btn btn-danger"
+                ><i class="bi bi-trash3-fill"></i></a>
+            </td>
+
+            
+
+
+
+
+
+
+            </tr>
+            <% }); %> <% } else if (boton === 'trabajadores') { %> <%
+            usuarios.forEach(usuario => { %>
+            <tr>
+                <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><%= usuario.id %></td>
+
+                
+              <td>
+                <div class="avatar-container">
+                  <img
+                    src="/uploads/<%= usuario.foto %>"
+                    alt="Foto de <%= usuario.nombre %>"
+                    class="img-fluid rounded-circle img-producto"
+                  />
+                </div>
+              </td>
+              <td><%= usuario.nombre %></td>
+              <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><%= usuario.email %></td>
+              <td><%= usuario.curp %></td>
+              <td><%= usuario.rfc %></td>
+              <td><%= usuario.telefono %></td>
+              <td>
+              <a href="/usuarios/usuarios/editar/<%= usuario.id %>" class="btn btn-warning">
+                <i class="bi bi-pen-fill"></i>
+              </a>
+              
+            </td>
+            <td> 
+              <a
+                href="/usuarios/usuarios/borrar/<%= usuario.id %>"
+                class="btn btn-danger"
+                ><i class="bi bi-trash3-fill"></i></a>
+            </td>
+
+
+            <td> 
+              <a
+                href="/usuarios/usuarios/vendido/<%= usuario.id %>"
+                class="btn btn-success"
+                ><i class="bi bi-cash-coin"> Vendido</i></a>
+            </td>
+
+            </tr>
+            <% }); %> <% } %>
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <% if (boton === 'productos') { %>
+            <a href="/productos/productos/nuevoproducto"> Agregrar productos</a> 
+            <a href=""> Buscar prodcutos</a>
+            <% } else if (boton === 'trabajadores') { %>
+            <a href="/usuarios/usuarios/nuevotrajador"> Agregrar trabajadores</a>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    
+  /* Bootstrap styles */
+  @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
+
+  /* Añade estilos adicionales según sea necesario para la tabla */
+
+  body {
+    background-color: rgb(196, 213, 231);
+  }
+  .tablaPro {
+    margin-top: 20px;
+  }
+  .card {
+    border: 1px solid #000000;
+    border-radius: 50px;
+    margin-top: 20px;
+    text-align: center;
+    table-layout: fixed;
+    display: block;
+    width: 100%;
+    
+    margin-top: 20px;
+    background-color: #779cea;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: none;
+    margin-top: 20px;
+    border-radius: 50px;
+  }
+
+
+  .button-52 {
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-52:after {
+  content: "";
+  background-color: #779cea;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+
+.button-52:hover:after {
+  top: 0px;
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  .button-52 {
+    padding: 13px 50px 13px;
+  }
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botones a {
+  margin: 0 10px; /* Ajusta el espacio entre botones según tus necesidades */
+  text-decoration: none;
+  color: #000000; /* Cambia el color del texto según tus preferencias */
+  font-weight: 400;
+}
+
+a{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    text-decoration: wavy;
+    padding-left: 20px;
+}
+
+
+</style>
+
+<%- include("../templates/pie")%>

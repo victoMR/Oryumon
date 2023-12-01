@@ -28,7 +28,12 @@
           </div>
           <li>Usuario : <%= usuario.usuario %></li>
           <li>Contraseña : <%= usuario.password.slice(0, 10) %> ... y <%= usuario.password.length - 10 %> caracteres restantes</li>
-          <li>Edad : <%= usuario.edad %></li>
+          <li>Correo : <%= usuario.email %></li>
+          <li>Curp : <%= usuario.curp %></li>
+          <li>RFC : <%= usuario.rfc %></li>
+          <li>Teléfono : <%= usuario.telefono %></li>
+          
+
         </ul>
       </div>
       <div class="card-footer text-center">
@@ -44,6 +49,9 @@
 </div>
 
 <style>
+  body {
+    background-color: rgb(196, 213, 231);
+  }
   .container {
     max-width: 500px;
     margin: 0 auto;
@@ -57,10 +65,11 @@
   }
 
   .card-header {
-    background-color: #f8f9fa;
+    background-color: #8eb8e2;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #92b6df;
     margin-bottom: 10px;
+    border-radius: 30px;
   }
 
   .card-body {
@@ -70,5 +79,19 @@
   .btn {
     margin-right: 10px;
   }
+  .card {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: double;
+}
+
+.card:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+li{
+  text-align: justify;
+}
 </style>
 <%- include("../templates/pie")%>

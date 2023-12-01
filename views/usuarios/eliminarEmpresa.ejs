@@ -1,37 +1,49 @@
-<%- include("../templates/index")%> <%- include("../templates/menuProduct")%>
+<%- include("../templates/index")%> <%- include("../templates/menuLoginUsr")%>
+<br><br><br>
 <div class="container mt-5">
-  <form action="/productos/productos/borrar" method="post">
+  <form action="/usuarios/usuarios/eliminarEmpresa" method="post">
+    <input
+      type="hidden"
+      name="id"
+      value="<%= usuario.id %>"
+    />
     <div class="card">
-      <div class="card-header text-center text-capitalize text-bg-primary ">
-        <h3>¿Quieres borrar este producto? 🤔</h3>
+      <div class="card-header text-center text-capitalize text-bg-primary">
+        <h3>¿ Borrar Empresa : <%= usuario.nombreEmpresa %> ?</h3>
       </div>
       <div class="card-body fs-5">
-        <p>No podras deshacer los cambios</p>
-        <p>Datos de producto: </p>
+        <p>¿Estás seguro de que deseas borrar tu empresa ?</p>
+        <p>Cual tiene estos atributos</p>
         <ul>
-          <li>Nombre : <%= producto.nombre %></li>
-          <li>Foto : <%= producto.foto %></li>
+          <li>Nombre : <%= usuario.nombre %></li>
+          <li>Foto : <%= usuario.foto %></li>
           <div class="avatar-container text-center align-content-center">
             <img
               class="user-avatar img-fluid m-3"
               style="border-radius: 10px"
-              src="/uploadsProducts/<%= producto.foto %>"
-              alt="<%= producto.foto %>"
+              src="/uploads/<%= usuario.foto %>"
+              alt="Foto de perfil"
               width="100px"
             />
             <br />
           </div>
-          <li>Descripcion : <%= producto.descripcion %></li>
-          <li>Precio : $<%= producto.precio %></li>
-          <li>Cantidad : #<%= producto.cantidad %></li>
+          <li>Usuario : <%= usuario.usuario %></li>
+          <li>Contraseña : <%= usuario.password.slice(0, 10) %> ... y <%= usuario.password.length - 10 %> caracteres restantes</li>
+          <li>Correo : <%= usuario.email %></li>
+          <li>Curp : <%= usuario.curp %></li>
+          <li>RFC : <%= usuario.rfc %></li>
+          <li>Teléfono : <%= usuario.telefono %></li>
+          <li>Direcion : <%= usuario.direccionEmpresa %></li>
+
         </ul>
       </div>
       <div class="card-footer text-center">
-        <input type="hidden" name="id" id="id" value="<%= producto.id %>" />
         <button class="btn btn-danger" type="submit">
           <i class="bi bi-trash3-fill"></i> Borrar
         </button>
-        <a href="/productos/productos" class="btn btn-secondary"> <i class="bi bi-arrow-bar-left"></i> Cancelar</a>
+        <a href="/principalTienda" class="btn btn-secondary">
+          <i class="bi bi-arrow-bar-left"></i> Cancelar</a
+        >
       </div>
     </div>
   </form>
@@ -82,6 +94,5 @@
 li{
   text-align: justify;
 }
-
 </style>
 <%- include("../templates/pie")%>

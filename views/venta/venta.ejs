@@ -1,0 +1,221 @@
+<%- include("../templates/index") %> <%- include("../templates/menuVenta") %>
+<br /><br /><br />
+<div class="container mt-5">
+  <form action="/venta/venta" method="post" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h3>Venta</h3>
+      </div>
+
+      <div class="card-body">
+        <!-- Search Input -->
+        <div class="mb-3">
+          <label for="search" class="form-label">Buscar Producto</label>
+          <input
+            type="text"
+            class="form-control"
+            id="search"
+            name="search"
+            placeholder="Nombre del Producto"
+            oninput="filterProducts()"
+            onkeydown="handleEnterKey(event)"
+          />
+          <ul id="searchResults" class="list-group mt-2">
+            <% productos.forEach(product => { %>
+            <li
+              class="list-group-item"
+              data-id="<%= product.id %>"
+              data-name="<%= product.nombre %>"
+              data-precio="<%= product.precio %>"
+              onclick="handleProductSelection('<%= product.id %>', '<%= product.nombre %>')"
+            >
+              <div>
+                <%= product.nombre %>
+                <p class="precio">$<%= product.precio %></p>
+              </div>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+
+        <!-- Selected Product Details -->
+        <div id="selectedProductDetails" class="mb-3" style="display: none">
+          <h5>Producto Seleccionado:</h5>
+          <p id="selectedProductNameDisplay"></p>
+          <p class="precio" id="selectedProductPrice"></p>
+        </div>
+
+        <!-- Quantity Input -->
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Cantidad</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity"
+            name="quantity"
+            value="1"
+            min="1"
+          />
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button type="button" class="btn btn-primary" onclick="addToCart()">
+          Agregar Venta
+        </button>
+        <button id="clearCart" class="btn btn-danger">Eliminar Carrito</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Cart Display -->
+<div id="cartDisplay" class="container mt-3" style="display: none">
+  <h3>Carrito de Compras</h3>
+  <ul id="cartList" class="list-group">
+    <!-- Cart items will be displayed here -->
+  </ul>
+
+  <!-- Total Price Display -->
+  <div class="mt-3">
+    <h5>Precio Total: <span id="totalPriceDisplay">$0.00</span></h5>
+  </div>
+</div>
+
+<script>
+  handleEnterKey = (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      filterProducts();
+    }
+  };
+
+  handleProductSelection = (id, name, precio) => {
+    document.getElementById("search").value = name;
+    document.getElementById("selectedProductNameDisplay").innerHTML = name;
+    document.getElementById("selectedProductDetails").style.display = "block";
+    document.getElementById("selectedProductDetails").dataset.id = id;
+    /// Set the dataset including the precio attribute
+    const selectedProductDetails = document.getElementById(
+      "selectedProductDetails"
+    );
+    selectedProductDetails.dataset.id = id;
+    selectedProductDetails.dataset.precio = precio;
+
+    const precioElement = document.getElementById("selectedProductPrice");
+    if (precioElement) {
+      precioElement.textContent = `$${precio}`;
+    }
+  };
+
+  handleCartDisplay = () => {
+    const cartDisplay = document.getElementById("cartDisplay");
+    const cartList = document.getElementById("cartList");
+    const totalPriceDisplay = document.getElementById("totalPriceDisplay");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+      cartDisplay.style.display = "none";
+      return;
+    }
+
+    cartDisplay.style.display = "block";
+    cartList.innerHTML = "";
+    let totalPrice = 0;
+
+    cart.forEach((item) => {
+      const li = document.createElement("li");
+      li.classList.add("list-group-item");
+      li.innerHTML = `
+      <div class="d-flex justify-content-between">
+        <p>${item.name}</p>
+        <p>$${item.precio}</p>
+      </div>
+    `;
+      cartList.appendChild(li);
+      totalPrice += item.precio;
+    });
+
+    totalPriceDisplay.innerHTML = `$${totalPrice.toFixed(2)}`;
+  };
+
+  handleClearCart = () => {
+    localStorage.setItem("cart", JSON.stringify([]));
+    handleCartDisplay();
+  };
+
+  addToCart = () => {
+    const selectedProductDetails = document.getElementById(
+      "selectedProductDetails"
+    );
+    const selectedProductNameDisplay = document.getElementById(
+      "selectedProductNameDisplay"
+    );
+    const quantity = document.getElementById("quantity").value;
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (!selectedProductDetails) {
+      console.error(
+        "El elemento selectedProductDetails no se encontró en el DOM"
+      );
+      return;
+    }
+
+    const item = {
+      id: selectedProductDetails.dataset.id,
+      name: selectedProductNameDisplay.innerHTML,
+      precio: parseFloat(selectedProductDetails.dataset.precio),
+      quantity: parseInt(quantity),
+    };
+
+    // Check if the item is already in the cart
+    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+
+    if (existingItem) {
+      // Update quantity if the item is already in the cart
+      existingItem.quantity += item.quantity;
+      existingItem.precio += item.precio;
+    } else {
+      // Add the item to the cart if it's not already present
+      cart.push(item);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    handleCartDisplay();
+  };
+
+  filterProducts = () => {
+    const search = document.getElementById("search").value;
+    const searchResults = document.getElementById("searchResults");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (!searchResults) {
+      console.error("El elemento searchResults no se encontró en el DOM");
+      return;
+    }
+
+    searchResults.innerHTML = "";
+    productos.forEach((product) => {
+      if (
+        product.nombre.toLowerCase().includes(search.toLowerCase()) &&
+        !cart.some((item) => item.id === product.id)
+      ) {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.dataset.id = product.id;
+        li.dataset.name = product.nombre;
+        li.dataset.precio = product.precio;
+        li.onclick = () =>
+          handleProductSelection(product.id, product.nombre, product.precio);
+        li.innerHTML = `
+          ${product.nombre} - $${product.precio}
+        `;
+        searchResults.appendChild(li);
+      }
+    });
+  };
+
+  //clear cart whit localstorage
+  document.getElementById("clearCart").onclick = handleClearCart;
+</script>
+
+<%- include("../templates/pie") %>

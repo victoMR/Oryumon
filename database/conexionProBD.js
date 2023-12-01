@@ -1,12 +1,12 @@
 var admin = require("firebase-admin");  // para usar firebase
 
-var keys2 = require("../keys.json");  // para usar las credenciales de firebase
+var keys2 = require("../keys1.json");  // para usar las credenciales de firebase
 
 
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert(keys2),
-        appName: 'productosBD'
+        appName: 'Oryumon'
     });
  }else {
     admin.app(); // if already initialized, use that one

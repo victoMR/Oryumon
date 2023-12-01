@@ -1,11 +1,12 @@
 <%- include("../templates/index")%>
-<%- include("../templates/menu")%>
+<%- include("../templates/menuLoginUsr")%>
+<br><br>
 <div class="container mt-5">
-  <form action="/usuarios/usuarios/nuevousuario" method="post" enctype="multipart/form-data">
+  <form action="/usuarios/usuarios/nuevotrajador" method="post" enctype="multipart/form-data">
     <!-- enctype para enviar archivos binarios -->
     <div class="card">
       <div class="card-header">
-        <h3>Nuevo Usuario</h3>
+        <h3>Nuevo Trabajador</h3>
       </div>
       <div class="card-body">
         <input
@@ -70,6 +71,8 @@
           name="direccionEmpresa"
           id="direccionEmpresa"
           placeholder="Dirección de la Empresa"
+          hidden
+          value="x"
         />
         <input
           class="form-control mb-3"
@@ -77,6 +80,8 @@
           name="nombreEmpresa"
           id="nombreEmpresa"
           placeholder="Nombre de la Empresa"
+          hidden
+          value="x"
         />
         <input
           class="form-control mb-3"
