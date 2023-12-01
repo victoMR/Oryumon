@@ -81,17 +81,6 @@
                 <i class="bi bi-person-down"></i> Cerrar Sesión
               </a>
             </li>
-            <div class="dsa">
-              <% usuarios.forEach((usuario) => { %>
-                <% console.log("Usuario ID:", usuario.id, "User ID:", userId); %>
-                <% if (usuario.id.toString() === userId) { %>
-                  <% console.log("dd"+usuario.foto); %>
-                  <img src="/uploads/<%= usuario.foto %>" class="rounded-circle" width="50" height="50" alt="Imagen de <%= usuario.nombre %>">
-                  <p class="text-center"><%= usuario.nombre %></p>
-                  <% console.log("dsad"+usuario.foto); %>
-                <% } %>
-              <% }); %>
-            </div>
           </ul>
         </div>
       </div>
