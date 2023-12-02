@@ -1,5 +1,128 @@
-<%- include("../templates/index")%> 
-<%- include("../templates/menuUsrV2")%>
+<%- include("../templates/index")%>
+<nav
+  class="navbar navbar-dark bg-primary fixed-top navbar-expand-lg"
+  id="menu2"
+>
+  <div class="container-fluid">
+    <!-- <a class="navbar-brand" href="/">
+  <i class="bi bi-fire"></i> Inicio
+</a> -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasDarkNavbar"
+      aria-controls="offcanvasDarkNavbar"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-end text-bg-dark"
+      tabindex="-1"
+      id="offcanvasDarkNavbar"
+      aria-labelledby="offcanvasDarkNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menú</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">
+              <i class="bi bi-house-fill"></i> Inicio
+            </a>
+          </li>
+
+          <li class="nav-item" id="perfilDropdown">
+            <a class="nav-link" href="#">
+              <i class="bi bi-person-lines-fill"></i> Perfil
+            </a>
+            <div class="dropdown-content">
+              <a
+                class="nav-link"
+                href="/usuarios/usuarios/editarEmpresa/<%= userId %>"
+                ><i class="bi bi-pencil-fill"></i> Editar</a
+              >
+              <a class="nav-link" href="/usuarios/eliminarEmpresa/<%= userId %>"
+                ><i class="bi bi-trash-fill"></i> Eliminar</a
+              >
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/productos/productos">
+              <i class="bi bi-file-plus-fill"></i> Productos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="bi bi-person-down"></i> Cerrar Sesión
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  body {
+    padding-top: 56px; /* Ajustar según la altura del navbar */
+  }
+
+  .navbar-brand i {
+    font-size: 1.5rem; /* Tamaño del icono en la marca */
+  }
+
+  .navbar-toggler-icon {
+    color: white; /* Color del icono del botón de navegación */
+  }
+
+  .offcanvas-body {
+    padding: 10px;
+  }
+
+  .navbar-nav .nav-link i {
+    margin-right: 5px; /* Espaciado entre el icono y el texto del enlace */
+  }
+
+  @media (max-width: 991px) {
+    body {
+      padding-top: 0; /* Eliminar el espacio superior en pantallas pequeñas */
+    }
+
+    #perfilDropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      transition: display 0.3s; /* Añadido para la animación */
+    }
+
+    #perfilDropdown:hover .dropdown-content {
+      display: block;
+      top: 100%; /* Ajusta según sea necesario para la posición deseada */
+    }
+
+    #menu2 {
+      background-color: #7397e3 !important;
+    }
+  }
+</style>
 
 <br /><br /><br />
 <div class="container">
@@ -39,11 +162,11 @@
               <th><i class="bi bi-card-id"></i> CURP</th>
               <th><i class="bi bi-card-text"></i> RFC</th>
               <th><i class="bi bi-phone"></i></th>
-              
+
               <th><i class="bi bi-pencil-square"></i></th>
               <th><i class="bi bi-trash3-fill"></i></th>
               <!-- aqui boton de vendido -->
-              <th><i class="bi bi-cash-coin" ></i></th>
+              <th><i class="bi bi-cash-coin"></i></th>
               <% } %>
             </tr>
           </thead>
@@ -53,7 +176,7 @@
             <h3>Productos</h3>
             <% } else if (boton === 'trabajadores') { %>
             <h3>Trabajadores</h3>
-            
+
             <% } %>
           </div>
           <tbody class="tapro">
@@ -78,35 +201,37 @@
               <td><%= producto.iva %></td>
               <td><%= producto.descuento %></td>
               <td><%= producto.reserva %></td>
-              
 
-<td>
-              <a href="/productos/productos/editar/<%= producto.id %>" class="btn btn-warning">
-                <i class="bi bi-pen-fill"></i>
-              </a>
-              
-            </td>
-            <td> 
-              <a
-                href="/productos/productos/borrar/<%= producto.id %>"
-                class="btn btn-danger"
-                ><i class="bi bi-trash3-fill"></i></a>
-            </td>
-
-            
-
-
-
-
-
-
+              <td>
+                <a
+                  href="/productos/productos/editar/<%= producto.id %>"
+                  class="btn btn-warning"
+                >
+                  <i class="bi bi-pen-fill"></i>
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/productos/productos/borrar/<%= producto.id %>"
+                  class="btn btn-danger"
+                  ><i class="bi bi-trash3-fill"></i
+                ></a>
+              </td>
             </tr>
             <% }); %> <% } else if (boton === 'trabajadores') { %> <%
             usuarios.forEach(usuario => { %>
             <tr>
-                <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><%= usuario.id %></td>
+              <td
+                style="
+                  max-width: 50px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                "
+              >
+                <%= usuario.id %>
+              </td>
 
-                
               <td>
                 <div class="avatar-container">
                   <img
@@ -117,42 +242,53 @@
                 </div>
               </td>
               <td><%= usuario.nombre %></td>
-              <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><%= usuario.email %></td>
+              <td
+                style="
+                  max-width: 50px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                "
+              >
+                <%= usuario.email %>
+              </td>
               <td><%= usuario.curp %></td>
               <td><%= usuario.rfc %></td>
               <td><%= usuario.telefono %></td>
               <td>
-              <a href="/usuarios/usuarios/editar/<%= usuario.id %>" class="btn btn-warning">
-                <i class="bi bi-pen-fill"></i>
-              </a>
-              
-            </td>
-            <td> 
-              <a
-                href="/usuarios/usuarios/borrar/<%= usuario.id %>"
-                class="btn btn-danger"
-                ><i class="bi bi-trash3-fill"></i></a>
-            </td>
+                <a
+                  href="/usuarios/usuarios/editar/<%= usuario.id %>"
+                  class="btn btn-warning"
+                >
+                  <i class="bi bi-pen-fill"></i>
+                </a>
+              </td>
+              <td>
+                <a
+                  href="/usuarios/usuarios/borrar/<%= usuario.id %>"
+                  class="btn btn-danger"
+                  ><i class="bi bi-trash3-fill"></i
+                ></a>
+              </td>
 
-
-            <td> 
-              <a
-                href="/usuarios/usuarios/vendido/<%= usuario.id %>"
-                class="btn btn-success"
-                ><i class="bi bi-cash-coin"> Vendido</i></a>
-            </td>
-
+              <td>
+                <a
+                  href="/usuarios/usuarios/vendido/<%= usuario.id %>"
+                  class="btn btn-success"
+                  ><i class="bi bi-cash-coin"> Vendido</i></a
+                >
+              </td>
             </tr>
             <% }); %> <% } %>
           </tbody>
         </table>
         <div class="card-footer">
           <% if (boton === 'productos') { %>
-            <a href="/productos/productos/nuevoproducto"> Agregrar productos</a> 
-            <a href=""> Buscar prodcutos</a>
-            <% } else if (boton === 'trabajadores') { %>
-            <a href="/usuarios/usuarios/nuevotrajador"> Agregrar trabajadores</a>
-            <% } %>
+          <a href="/productos/productos/nuevoproducto"> Agregrar productos</a>
+          <a href=""> Buscar prodcutos</a>
+          <% } else if (boton === 'trabajadores') { %>
+          <a href="/usuarios/usuarios/nuevotrajador"> Agregrar trabajadores</a>
+          <% } %>
         </div>
       </div>
     </div>
@@ -160,7 +296,6 @@
 </div>
 
 <style>
-    
   /* Bootstrap styles */
   @import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css");
 
@@ -180,7 +315,7 @@
     table-layout: fixed;
     display: block;
     width: 100%;
-    
+
     margin-top: 20px;
     background-color: #779cea;
   }
@@ -193,66 +328,63 @@
     border-radius: 50px;
   }
 
-
   .button-52 {
-  font-size: 16px;
-  font-weight: 200;
-  letter-spacing: 1px;
-  padding: 13px 20px 13px;
-  outline: 0;
-  border: 1px solid black;
-  cursor: pointer;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-52:after {
-  content: "";
-  background-color: #779cea;
-  width: 100%;
-  z-index: -1;
-  position: absolute;
-  height: 100%;
-  top: 7px;
-  left: 7px;
-  transition: 0.2s;
-}
-
-.button-52:hover:after {
-  top: 0px;
-  left: 0px;
-}
-
-@media (min-width: 768px) {
-  .button-52 {
-    padding: 13px 50px 13px;
+    font-size: 16px;
+    font-weight: 200;
+    letter-spacing: 1px;
+    padding: 13px 20px 13px;
+    outline: 0;
+    border: 1px solid black;
+    cursor: pointer;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
   }
-}
 
-.botones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .button-52:after {
+    content: "";
+    background-color: #779cea;
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+    height: 100%;
+    top: 7px;
+    left: 7px;
+    transition: 0.2s;
+  }
 
-.botones a {
-  margin: 0 10px; /* Ajusta el espacio entre botones según tus necesidades */
-  text-decoration: none;
-  color: #000000; /* Cambia el color del texto según tus preferencias */
-  font-weight: 400;
-}
+  .button-52:hover:after {
+    top: 0px;
+    left: 0px;
+  }
 
-a{
+  @media (min-width: 768px) {
+    .button-52 {
+      padding: 13px 50px 13px;
+    }
+  }
+
+  .botones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .botones a {
+    margin: 0 10px; /* Ajusta el espacio entre botones según tus necesidades */
+    text-decoration: none;
+    color: #000000; /* Cambia el color del texto según tus preferencias */
+    font-weight: 400;
+  }
+
+  a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
     text-decoration: wavy;
     padding-left: 20px;
-}
-
-
+  }
 </style>
 
 <%- include("../templates/pie")%>
