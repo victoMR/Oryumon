@@ -77,14 +77,14 @@ ruta.post("/usuarios/editar", subirArchivo(), async (req, res) => {
     if (compararPassword(req.body.password, usuario.password, usuario.salt)) {
       // Si la nueva contraseña es la misma que la anterior, establecer un mensaje de error
       error = "No puedes usar la misma contraseña que tenías antes";
-      res.render("usuarios/modificarUsr", { usuario, error });
+      res.render("login/login ", { usuario, error });
     } else {
       // Si la nueva contraseña es diferente, actualizar la contraseña encriptada y la sal
       req.body.password = hash;
       req.body.salt = salt;
       req.body.foto = req.file ? req.file.originalname : usuario.foto; // Actualizar el valor de req.body.foto
       var error = await modificarUsuario(req.body);
-      res.redirect("/usuarios/usuarios");
+      res.redirect("/");
     }
   } else {
     // Si no se proporciona una nueva contraseña, mantener la contraseña y la sal existentes
@@ -142,7 +142,7 @@ ruta.post("/usuarios/editarEmpresa", subirArchivo(), async (req, res) => {
 });
 
 //eliminar empresa
-ruta.get("/usuarios/eliminarEmpresa/:id", autorizado, async (req, res) => {
+ruta.get("/usuarios/eliminarEmpresa/:id", async (req, res) => {
   try {
     const usuario = await buscarPorID(req.params.id);
     res.render("usuarios/eliminarEmpresa", { usuario, error: null });

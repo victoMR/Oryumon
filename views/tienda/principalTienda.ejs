@@ -4,9 +4,6 @@
   id="menu2"
 >
   <div class="container-fluid">
-    <!-- <a class="navbar-brand" href="/">
-  <i class="bi bi-fire"></i> Inicio
-</a> -->
     <button
       class="navbar-toggler"
       type="button"
@@ -40,32 +37,27 @@
             </a>
           </li>
 
-          <li class="nav-item" id="perfilDropdown">
-            <a class="nav-link" href="#">
-              <i class="bi bi-person-lines-fill"></i> Perfil
+          <li class="nav-item" id="editarPerfil">
+            <a
+              class="nav-link"
+              href="/usuarios/usuarios/editarEmpresa/<%= userId %>"
+            >
+              <i class="bi bi-pencil-fill"></i> Editar Datos de la Empresa
             </a>
-            <div class="dropdown-content">
-              <a
-                class="nav-link"
-                href="/usuarios/usuarios/editarEmpresa/<%= userId %>"
-                ><i class="bi bi-pencil-fill"></i> Editar</a
-              >
-              <a class="nav-link" href="/usuarios/eliminarEmpresa/<%= userId %>"
-                ><i class="bi bi-trash-fill"></i> Eliminar</a
-              >
-            </div>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="/productos/productos">
-              <i class="bi bi-file-plus-fill"></i> Productos
+          <li class="nav-item" id="eliminarPerfil">
+            <a class="nav-link" href="/usuarios/usuarios/eliminarEmpresa/<%= userId %>">
+              <i class="bi bi-trash-fill"></i> Eliminar Empresa
             </a>
           </li>
+
           <li class="nav-item">
             <a class="nav-link" href="/logout">
               <i class="bi bi-person-down"></i> Cerrar Sesión
             </a>
           </li>
+          <p><%= %></p>
         </ul>
       </div>
     </div>
@@ -74,54 +66,341 @@
 
 <style>
   body {
-    padding-top: 56px; /* Ajustar según la altura del navbar */
+    padding-top: 5%; /* Adjust based on your header height */
   }
 
-  .navbar-brand i {
-    font-size: 1.5rem; /* Tamaño del icono en la marca */
+  #menu2 {
+    background-color: #3498db; /* Use your desired background color */
+  }
+
+  #offcanvasDarkNavbar {
+    background-color: #2c3e50; /* Use your desired background color */
   }
 
   .navbar-toggler-icon {
-    color: white; /* Color del icono del botón de navegación */
+    background-color: #fff; /* Use your desired color */
+    border-radius: 50%;
+  }
+
+  .nav-link:hover {
+    color: black;
+    background-color: #3c3c3c65; /* Use your desired background color */
+    border-radius: 15px;
+    animation: navPup 0.5s ease-in-out;
+  }
+  @keyframes navPup {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+    
   }
 
   .offcanvas-body {
-    padding: 10px;
+    color: #fff; /* Use your desired text color */
   }
 
-  .navbar-nav .nav-link i {
-    margin-right: 5px; /* Espaciado entre el icono y el texto del enlace */
+  .offcanvas-body a {
+    color: #fff; /* Use your desired link color */
   }
 
-  @media (max-width: 991px) {
-    body {
-      padding-top: 0; /* Eliminar el espacio superior en pantallas pequeñas */
+  .offcanvas-body a:hover {
+    color: #ecf0f1; /* Use your desired link hover color */
+  }
+
+  .btn-close {
+    color: #fff; /* Use your desired close icon color */
+  }
+
+  .btn-close:hover {
+    color: #ecf0f1; /* Use your desired close icon hover color */
+  }
+
+  .navbar-toggler {
+    border-color: #fff; /* Use your desired border color */
+  }
+
+  .navbar-toggler:hover {
+    background-color: #fff; /* Use your desired background color */
+    border-radius: 50%;
+  }
+
+  .navbar-toggler:focus {
+    background-color: #fff; /* Use your desired background color */
+    border-radius: 50%;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .btn-close {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em 0.25em;
+    color: #fff;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease-in-out;
+  }
+
+  .btn-close:hover {
+    opacity: 0.5;
+  }
+
+  .btn-close:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+
+  .offcanvas {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    visibility: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .offcanvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .offcanvas-header .btn-close {
+    padding: 0.5rem 0.5rem;
+    margin-top: -0.5rem;
+    margin-right: -0.5rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .offcanvas-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .offcanvas-body {
+    flex-grow: 1;
+    padding: 1rem 1rem;
+    overflow-y: auto;
+  }
+
+  .offcanvas-start {
+    top: 0;
+    left: 0;
+    width: 400px;
+    border-right: 1px solid #e9ecef;
+    transform: translateX(-100%);
+  }
+
+  .offcanvas-end {
+    top: 0;
+    right: 0;
+    width: 400px;
+    border-left: 1px solid #e9ecef;
+    transform: translateX(100%);
+  }
+
+  @media (max-width: 575.98px) {
+    .offcanvas-sm-start {
+      top: 0;
+      left: 0;
+      width: 300px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
     }
 
-    #perfilDropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-      transition: display 0.3s; /* Añadido para la animación */
-    }
-
-    #perfilDropdown:hover .dropdown-content {
-      display: block;
-      top: 100%; /* Ajusta según sea necesario para la posición deseada */
-    }
-
-    #menu2 {
-      background-color: #7397e3 !important;
+    .offcanvas-sm-end {
+      top: 0;
+      right: 0;
+      width: 300px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
     }
   }
+
+  @media (min-width: 576px) {
+    .offcanvas-sm-start {
+      top: 0;
+      left: 0;
+      width: 300px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-sm-end {
+      top: 0;
+      right: 0;
+      width: 300px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .offcanvas-md-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-md-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .offcanvas-md-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-md-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    .offcanvas-lg-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-lg-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (min-width: 992px) {
+    .offcanvas-lg-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-lg-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (max-width: 1199.98px) {
+    .offcanvas-xl-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-xl-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .offcanvas-xl-start {
+      top: 0;
+      left: 0;
+      width: 400px;
+      border-right: 1px solid #e9ecef;
+      transform: translateX(-100%);
+    }
+
+    .offcanvas-xl-end {
+      top: 0;
+      right: 0;
+      width: 400px;
+      border-left: 1px solid #e9ecef;
+      transform: translateX(100%);
+    }
+  }
+
+  .offcanvas-header {
+    padding: 1rem 1rem;
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  .offcanvas-header .btn-close {
+    padding: 0.5rem 0.5rem;
+    margin-top: -0.5rem;
+    margin-right: -0.5rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .offcanvas-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  .offcanvas-body {
+    padding: 1rem 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  offcanvas-backdrop{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--bs-backdrop-z-index);
+    background-color: #000;
+  }
+
 </style>
 
 <br /><br /><br />
@@ -274,7 +553,7 @@
               <td>
                 <a
                   href="/usuarios/usuarios/vendido/<%= usuario.id %>"
-                  class="btn btn-success"
+                  class="btn btn-success disabled"
                   ><i class="bi bi-cash-coin"> Vendido</i></a
                 >
               </td>
@@ -384,6 +663,12 @@
     color: black;
     text-decoration: wavy;
     padding-left: 20px;
+  }
+
+  a:hover {
+    background-color: #779cea;
+    color: black;
+
   }
 </style>
 
