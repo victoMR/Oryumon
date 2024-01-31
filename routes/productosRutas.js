@@ -42,7 +42,7 @@ rutaProduct.post(
   }
 );
 // EDITAR
-rutaProduct.get("/productos/editar/:id", autorizado, async (req, res) => {
+rutaProduct.get("/productos/editar/:id", async (req, res) => {
   try {
     const producto = await buscarPorIDPro(req.params.id);
     res.render("productos/modificarPro", { producto, error: null });
