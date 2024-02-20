@@ -18,7 +18,7 @@ const {
 const fs = require("fs").promises;
 //middleware para borrar archivos
 //PRINCIPAL
-ruta.get("/usuarios",autorizado, async (req, res) => {
+ruta.get("/usuarios", async (req, res) => {
   try {
     // Lógica para obtener los usuarios
     var usuarios = await mostrarUsuarios();
@@ -50,7 +50,7 @@ ruta.post("/usuarios/nuevotrajador", subirArchivo(), async (req, res) => {
 });
 
 // EDITAR
-ruta.get("/usuarios/editar/:id",autorizado, async (req, res) => {
+ruta.get("/usuarios/editar/:id", async (req, res) => {
   try {
     const usuario = await buscarPorID(req.params.id);
     res.render("usuarios/modificarUsr", { usuario, error: null });

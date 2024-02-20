@@ -46,7 +46,7 @@ rutaProduct.post("/productos/api/nuevoproducto", subirImagen(), async (req, res)
 });
 
 // EDITAR
-rutaProduct.post("/productos/api/editarProducto",  subirImagen(), async (req, res) => {
+rutaProduct.post("/productos/api/editarProducto/:id",  subirImagen(), async (req, res) => {
   var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
   if (req.file) {
     req.body.foto = req.file.originalname;
