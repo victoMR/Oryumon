@@ -64,17 +64,28 @@ rutaProduct.post(
   async (req, res) => {
     var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
     if (req.file) {
-      req.body.foto = req.file.originalname;
-    } else {
-      req.body.foto = producto.foto; // Mantener la foto existente
+      if (producto.foto) {
+        // Eliminar la foto existente
+        const rutaFotoExistente = `./public/uploadsProducts/${producto.foto}`;
+        fs.unlink(rutaFotoExistente, (err) => {
+          if (err) {
+            console.error("Error al eliminar la foto existente:", err);
+          } else {
+            console.log("Foto eliminada exitosamente");
+          }
+        });
     }
-    var error = await modificarProducto(req.body);
-    if (error == 0) {
-      res.status(200).json("Producto modificado 🥳");
-    } else {
-      res.status(400).json("Error al modificar producto 🥺");
-    }
+    req.body.foto = req.file.originalname;
+  } else {
+    req.body.foto = producto.foto; // Mantener la foto existente
   }
+  var error = await modificarProducto(req.params.id, req.body);
+  if (error == 0) {
+    res.status(200).json("Producto actualizado 🥳");
+  } else {
+    res.status(400).json("Error al actualizar producto 🥺");
+  }
+}
 );
 // ELIMINAR
 rutaProduct.get("/productos/api/borrarProducto/:id", async (req, res) => {
