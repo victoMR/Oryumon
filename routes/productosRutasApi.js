@@ -59,7 +59,7 @@ rutaProduct.post(
 
 // EDITAR
 rutaProduct.post(
-  "/productos/api/editarProducto/:id",
+  "/productos/api/editarProducto",
   subirImagen(),
   async (req, res) => {
     var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
