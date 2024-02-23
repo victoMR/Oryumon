@@ -62,31 +62,21 @@ rutaProduct.post(
   "/productos/api/editarProducto",
   subirImagen(),
   async (req, res) => {
-    var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
-    console.log("Producto:", producto);
+    var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario
     if (req.file) {
-      if (producto.foto) {
-        // Eliminar la foto existente
-        const rutaFotoExistente = `./public/uploadsProducts/${producto.foto}`;
-        fs.unlink(rutaFotoExistente, (err) => {
-          if (err) {
-            console.error("Error al eliminar la foto existente:", err);
-          } else {
-            console.log("Foto eliminada exitosamente");
-          }
-        });
+      req.body.foto = req.file.originalname;
+    } else {
+      req.body.foto = producto.foto; // Mantener la foto existente
     }
-    req.body.foto = req.file.originalname;
-  } else {
-    req.body.foto = producto.foto; // Mantener la foto existente
+    var error = await modificarProducto(req.body);
+
+    if (error == 0) {
+      res.status(200).json("Producto modificado 🥳");
+    } else {
+      res.status(400).json("Error al modificar producto 🥺");
+    }
   }
-  var error = await modificarProducto(req.params.id, req.body);
-  if (error == 0) {
-    res.status(200).json("Producto actualizado 🥳");
-  } else {
-    res.status(400).json("Error al actualizar producto 🥺");
-  }
-}
+
 );
 // ELIMINAR
 rutaProduct.get("/productos/api/borrarProducto/:id", async (req, res) => {

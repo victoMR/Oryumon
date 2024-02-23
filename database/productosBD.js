@@ -37,24 +37,19 @@ async function nuevoProducto(datos) {
 }
 
 async function buscarPorIDPro(id) {
-  var producto = null; //inicio la variable producto
+  var producto = "";
+  console.log(producto);
 
   try {
     var productoDoc = await conexion.doc(id).get(); //busca el producto por id
-
-    if (productoDoc.exists) {
-      producto = new Producto(productoDoc.id, productoDoc.data()); //si lo encuentra
-
-      if (producto.bandera == 0) {
-        //si el producto existe y no esta vacio lo retorna
-        producto = producto.ObtenerDatos; //retorna el producto
-      }
+    var productoObjeto = new Producto(productoDoc.id, productoDoc.data());
+    if (productoObjeto.bandera == 0) {
+      producto = productoObjeto.ObtenerDatos;
     }
   } catch (err) {
-    console.log("Error al recuperar al producto" + err); //si no lo encuentra
+    console.log("Error al recuperar al producto" + err);
   }
-
-  return producto; // retonrna si no encuentra nada
+  return producto;
 }
 
 async function buscarPorNombrePro(nombre) {
@@ -94,24 +89,24 @@ async function nuevoProducto(datos) {
 }
 
 async function modificarProducto(datos) {
-  var productoBuscar = await buscarPorIDPro(datos.id);
+  console.log(datos);
+  var producto = await buscarPorIDPro(datos.id); //busca el producto por id
 
-  if (productoBuscar === null) {
-    console.log("Producto no encontrado");
-    return 1; // Retorna un código de error
-  }
+  if (producto != "") {
+    var productoInstancia = new Producto(datos.id, datos);
+    var error = 1;
 
-  var producto = new Producto(datos.id, datos);
-  var error = 1;
-
-  if (producto.bandera === 0) {
-    try {
-      await conexion.doc(producto.id).update(producto.ObtenerDatos);
-      console.log("Producto actualizado en la BD");
-      error = 0;
-    } catch (err) {
-      console.log("Error al actualizar producto" + err);
+    if (productoInstancia.bandera == 0) {
+      try {
+        await conexion.doc(datos.id).set(productoInstancia.ObtenerDatos);
+        console.log("Producto actualizado en la BD");
+        error = 0;
+      } catch (err) {
+        console.log("Error al actualizar producto" + err);
+      }
     }
+  } else {
+    console.log("Producto no encontrado");
   }
 
   return error;
