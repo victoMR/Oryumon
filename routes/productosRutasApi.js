@@ -63,6 +63,7 @@ rutaProduct.post(
   subirImagen(),
   async (req, res) => {
     var producto = await buscarPorIDPro(req.body.id); // Obtener el usuario antes del if
+    console.log("Producto:", producto);
     if (req.file) {
       if (producto.foto) {
         // Eliminar la foto existente
