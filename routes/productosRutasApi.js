@@ -37,7 +37,7 @@ rutaProduct.get("/productos/api/buscarPorIdProducto/:id", async (req, res) => {
 
     res.status(200).json(producto);
   } catch (err) {
-    console.error("Error al buscar producto: " + err);
+    console.error("Error al buscar producto en el server : " + err);
     res.status(500).json("Error interno del servidor al buscar producto 🥺");
   }
 });
